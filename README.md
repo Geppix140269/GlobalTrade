@@ -286,3 +286,22 @@ Member-to-member messaging, notifications, email, automated
 WhatsApp ingestion, matchmaking, analytics and multilingual UI are intentionally absent.
 The goal is a directory that preserves the Community's knowledge and opportunities, not
 another platform.
+
+## Setting up when only HTTPS is available
+
+Some networks and CI sandboxes block outbound Postgres (5432/6543), which stops
+`prisma db push` and `npm run db:seed` from connecting at all. On Neon you can do the
+whole setup over HTTPS instead:
+
+```bash
+npx prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma \
+  --script > schema.sql
+
+DIRECT_URL='<neon-direct-url>' \
+ADMIN_EMAIL=you@example.com ADMIN_PASSWORD='a-long-passphrase' \
+  npx tsx scripts/setup-neon.ts schema.sql
+```
+
+It applies the schema, loads the same seed data as `npm run db:seed` (both read
+`prisma/seed-data.ts`, so they cannot drift), and creates the admin. Re-running is safe.
+Omit the `schema.sql` argument to seed without touching the schema.
