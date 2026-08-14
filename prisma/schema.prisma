@@ -1,0 +1,106 @@
+// Global Trade Network — Community Directory
+// Deliberately light normalisation: two core entities (Member, Opportunity) plus
+// login accounts (User). Scalar string arrays are used for markets/expertise so the
+// data stays trivially exportable and portable to another store later.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum MemberStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum OpportunityStatus {
+  OPEN
+  IN_PROGRESS
+  MATCHED
+  CLOSED
+  ON_HOLD
+}
+
+/// A login account. Exactly one account per member profile.
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(MEMBER)
+  /// Admin can disable access without deleting the account or the profile.
+  isActive     Boolean  @default(true)
+  /// Forces a password change on next login (used for admin-issued credentials).
+  mustChangePassword Boolean @default(false)
+  /// The single member profile this account may edit. Null for admin-only accounts.
+  memberId     String?  @unique
+  member       Member?  @relation(fields: [memberId], references: [id], onDelete: SetNull)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// A Community member profile. Members maintain their own; admin may correct any.
+model Member {
+  id            String       @id @default(cuid())
+  name          String
+  company       String       @default("")
+  roleTitle     String       @default("")
+  baseCountry   String       @default("")
+  /// Countries / regions the member covers.
+  markets       String[]     @default([])
+  /// Free text: what they do.
+  whatTheyDo    String       @default("")
+  /// Products, services, expertise tags — also used for filtering.
+  expertise     String[]     @default([])
+  currentFocus  String       @default("")
+  lookingFor    String       @default("")
+  canOffer      String       @default("")
+  website       String       @default("")
+  linkedin      String       @default("")
+  email         String       @default("")
+  phone         String       @default("")
+  status        MemberStatus @default(ACTIVE)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  user          User?
+  /// Opportunities this member raised.
+  requests      Opportunity[] @relation("OpportunityRequester")
+  /// Opportunities this member could contribute to (supplier, buyer, logistics, ...).
+  relevantFor   Opportunity[] @relation("OpportunityRelevantMembers")
+
+  @@index([status])
+  @@index([baseCountry])
+}
+
+/// An active request / opportunity curated by the admin from Community conversation.
+model Opportunity {
+  id             String            @id @default(cuid())
+  dateAdded      DateTime          @default(now())
+  /// Denormalised requester name/company so a request survives profile changes.
+  requesterName  String
+  requesterCompany String          @default("")
+  requesterId    String?
+  requester      Member?           @relation("OpportunityRequester", fields: [requesterId], references: [id], onDelete: SetNull)
+  type           String            @default("")
+  market         String            @default("")
+  request        String
+  supportNeeded  String            @default("")
+  notes          String            @default("")
+  status         OpportunityStatus @default(OPEN)
+  /// Members who could contribute a piece of this opportunity.
+  relevantMembers Member[]         @relation("OpportunityRelevantMembers")
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([status])
+}
