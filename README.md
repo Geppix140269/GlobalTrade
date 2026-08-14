@@ -5,8 +5,8 @@ Community. WhatsApp stays the conversation layer; this is the structured memory:
 who is in the network, what they do, which markets they cover, what they are working
 on, what they need, and the active requests circulating in the Community.
 
-Access is by invitation only. There is no public registration and no directory data
-is served to an unauthenticated visitor.
+Access is by invitation only: members join with an invite code you issue and control,
+and no directory data is served to an unauthenticated visitor.
 
 ## Stack
 
@@ -79,9 +79,10 @@ size. If you later want migration history, switch to `npx prisma migrate dev`.
 `npm run db:seed` is idempotent: members are matched by name and requests by requester
 plus type, so re-running updates rather than duplicates.
 
-Three entities, deliberately lightly normalised:
+Four entities, deliberately lightly normalised:
 
 - **Member** — the directory profile. Markets and expertise are string arrays.
+- **InviteCode** — a code that lets a member create their own account.
 - **User** — a login. At most one per member profile, linked by `memberId`.
 - **Opportunity** — an active request, optionally linked to a requester profile and to
   the members who could contribute to it.
@@ -113,6 +114,31 @@ ensures it is an enabled admin — this is also the recovery path if you lock yo
 
 An admin account does not need a member profile. If you are also a Community member,
 create your profile first and link it when creating the account.
+
+## Invite codes (members sign themselves up)
+
+**Admin → Invite codes.** Create a code, share it in the Community, and members join
+themselves at `/signup`. Without a valid code there is no way to create an account, so
+the directory stays closed while you avoid creating every login by hand.
+
+A code can carry a **maximum number of uses** (blank = unlimited) and an **expiry in
+days** (blank = never), and can be disabled at any time. Codes are compared
+case-insensitively and ignore spaces, so members can type them casually.
+
+Sharing `https://your-app.vercel.app/signup?code=GTN-XXXX-XXXX` pre-fills the field —
+convenient to paste into WhatsApp.
+
+Self-signup always creates an ordinary **member** bound to a new profile of their own.
+Roles are only ever raised by an existing admin, so a code can never be used to obtain
+admin access.
+
+Every refusal — wrong, disabled, expired or exhausted code — returns the same message,
+so the form cannot be used to discover which codes exist. Uses are claimed by a single
+guarded `UPDATE`, so two people submitting the last use of a code cannot both succeed,
+and a failed signup hands its use back.
+
+To close signup entirely, disable every code. Admin → Accounts still works for creating
+logins by hand.
 
 ## Creating and disabling member accounts
 
@@ -256,7 +282,7 @@ They are skipped when `TEST_DATABASE_URL` is unset.
 
 ## Out of scope for V1
 
-Member self-registration, member-to-member messaging, notifications, email, automated
+Member-to-member messaging, notifications, email, automated
 WhatsApp ingestion, matchmaking, analytics and multilingual UI are intentionally absent.
 The goal is a directory that preserves the Community's knowledge and opportunities, not
 another platform.

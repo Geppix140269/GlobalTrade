@@ -53,6 +53,26 @@ model User {
   updatedAt    DateTime @updatedAt
 }
 
+/// An invite code that lets a Community member create their own account.
+/// Signup is still closed to the public: no code, no account.
+model InviteCode {
+  id         String    @id @default(cuid())
+  /// The code members type in. Stored uppercase; compared case-insensitively.
+  code       String    @unique
+  /// What this code is for, e.g. "WhatsApp Community — January".
+  label      String    @default("")
+  /// Null means unlimited uses.
+  maxUses    Int?
+  usedCount  Int       @default(0)
+  /// Null means it never expires.
+  expiresAt  DateTime?
+  isActive   Boolean   @default(true)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@index([isActive])
+}
+
 /// A Community member profile. Members maintain their own; admin may correct any.
 model Member {
   id            String       @id @default(cuid())

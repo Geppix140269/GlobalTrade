@@ -10,13 +10,15 @@ export default async function AdminPage() {
   // renders or queries anything on its own if the layout changes.
   await requireAdmin();
 
-  const [members, activeMembers, accounts, openRequests, totalRequests] = await Promise.all([
-    prisma.member.count(),
-    prisma.member.count({ where: { status: "ACTIVE" } }),
-    prisma.user.count({ where: { isActive: true } }),
-    prisma.opportunity.count({ where: { status: "OPEN" } }),
-    prisma.opportunity.count(),
-  ]);
+  const [members, activeMembers, accounts, openRequests, totalRequests, activeInvites] =
+    await Promise.all([
+      prisma.member.count(),
+      prisma.member.count({ where: { status: "ACTIVE" } }),
+      prisma.user.count({ where: { isActive: true } }),
+      prisma.opportunity.count({ where: { status: "OPEN" } }),
+      prisma.opportunity.count(),
+      prisma.inviteCode.count({ where: { isActive: true } }),
+    ]);
 
   const sections = [
     {
@@ -32,6 +34,12 @@ export default async function AdminPage() {
       description: "Create logins, disable access, change roles and reset passwords.",
     },
     {
+      href: "/admin/invites",
+      title: "Invite codes",
+      detail: `${activeInvites} active`,
+      description: "Let members sign themselves up with a code you control.",
+    },
+    {
       href: "/admin/requests",
       title: "Active Requests",
       detail: `${openRequests} open of ${totalRequests}`,
@@ -42,7 +50,7 @@ export default async function AdminPage() {
   return (
     <>
       <PageHeader title="Admin" subtitle="Manage the directory, accounts and Community requests." />
-      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {sections.map((section) => (
           <li key={section.href}>
             <Link href={section.href} className="block h-full">

@@ -80,6 +80,47 @@ const members: Prisma.MemberCreateInput[] = [
       "Extensive contacts in the Polish market for members interested in Poland, plus export consulting and market-entry support for manufacturers.",
     status: "ACTIVE",
   },
+  {
+    name: "Lord JD Waverley",
+    company: "LordWaverley",
+    roleTitle: "Founder & Executive Chair",
+    baseCountry: "United Kingdom",
+    markets: [
+      "Africa",
+      "South America",
+      "Middle East",
+      "Central Asia",
+      "Asia Pacific",
+      "Worldwide",
+    ],
+    whatTheyDo:
+      "Cross-border trade and investment support, with particular experience in emerging and developing markets: market entry, strategic partnerships, trade finance, supply chains, structuring, compliance, digital trade tools and international business development. Works through an international network of trade envoys and specialists with country- and region-specific expertise.",
+    expertise: [
+      "Market entry strategy",
+      "Trade missions and matchmaking",
+      "Supplier sourcing",
+      "Procurement opportunities",
+      "Investment attraction",
+      "Strategic partner identification",
+      "M&A / JV / partnership structuring",
+      "Trade finance and structured lending",
+      "Governance and compliance",
+      "Customs advisory",
+      "Risk analysis",
+      "Supply chain and logistics",
+      "Commodity trading",
+      "Projects and PPP planning",
+      "Digital trade",
+    ],
+    currentFocus: "",
+    // Left blank deliberately: nothing stated as a current personal need.
+    // To be completed by the member directly.
+    lookingFor: "",
+    canOffer:
+      "Market-entry introductions, strategic partners, suppliers, procurement opportunities, trade missions, emerging-market access, investment connections, localisation programmes, trade finance contacts and introductions to trade enablers.",
+    website: "https://www.lordwaverley.com",
+    status: "ACTIVE",
+  },
 ];
 
 interface SeedRequest {
