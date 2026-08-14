@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!--
+    Favicon: the Community's network mark on deep navy so it stays legible on
+    both light and dark browser chrome.
+
+    Deliberately simpler than the in-app logo: one meridian and one equator
+    rather than a full grid, and oversized gold nodes. At 16px a browser tab
+    renders this about 5px across the globe, so any more detail turns to mush.
+  -->
+  <rect width="64" height="64" rx="14" fill="#0d1a31" />
+  <g fill="none" stroke="#eef2f8" stroke-width="4" stroke-linecap="round">
+    <circle cx="32" cy="32" r="18" />
+    <ellipse cx="32" cy="32" rx="8.5" ry="18" />
+    <path d="M14.5 32h35" />
+  </g>
+  <g fill="#e0af4d">
+    <circle cx="32" cy="14" r="6" />
+    <circle cx="47.5" cy="41" r="6" />
+    <circle cx="16.5" cy="41" r="6" />
+  </g>
+</svg>
