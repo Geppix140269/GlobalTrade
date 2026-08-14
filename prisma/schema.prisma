@@ -67,6 +67,10 @@ model InviteCode {
   /// Null means it never expires.
   expiresAt  DateTime?
   isActive   Boolean   @default(true)
+  /// Role granted to whoever signs up with this code. Defaults to MEMBER;
+  /// set to ADMIN only for a code handed to one named person, since anyone
+  /// holding the code receives the role.
+  role       Role      @default(MEMBER)
   /// When set, this is a *claim* code: signing up with it takes ownership of an
   /// existing profile instead of creating a new one. Used to hand seeded
   /// profiles to the people they describe.

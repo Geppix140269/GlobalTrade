@@ -45,6 +45,16 @@ export function CreateInviteForm({ members }: { members: ClaimableMember[] }) {
           </select>
         </Field>
 
+        <Field
+          label="Role granted"
+          hint="Anyone who uses this code receives this role. Only choose Admin for a code you send to one named person."
+        >
+          <select className={inputClass} name="role" defaultValue="MEMBER">
+            <option value="MEMBER">Member</option>
+            <option value="ADMIN">Admin — full control of the directory</option>
+          </select>
+        </Field>
+
         <Field label="Label" hint="For your reference, e.g. “WhatsApp Community”.">
           <input className={inputClass} name="label" placeholder="WhatsApp Community" />
         </Field>

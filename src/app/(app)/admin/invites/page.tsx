@@ -82,11 +82,12 @@ export default async function AdminInvitesPage() {
                       <p className="font-mono text-lg font-semibold tracking-wider break-all text-navy-900">
                         {invite.code}
                       </p>
-                      {invite.member ? (
-                        <p className="mt-0.5">
+                      <div className="mt-0.5 flex flex-wrap gap-1.5">
+                        {invite.member ? (
                           <Tag tone="gold">Claim code for {invite.member.name}</Tag>
-                        </p>
-                      ) : null}
+                        ) : null}
+                        {invite.role === "ADMIN" ? <Tag tone="gold">Grants admin</Tag> : null}
+                      </div>
                       {invite.label ? (
                         <p className="mt-1 text-sm text-navy-600">{invite.label}</p>
                       ) : null}

@@ -15,6 +15,7 @@ const inviteSchema = z.object({
   maxUses: z.string().trim().default(""),
   expiresInDays: z.string().trim().default(""),
   memberId: z.string().trim().default(""),
+  role: z.enum(["ADMIN", "MEMBER"]).default("MEMBER"),
 });
 
 export async function createInvite(
@@ -30,6 +31,7 @@ export async function createInvite(
     maxUses: String(formData.get("maxUses") ?? ""),
     expiresInDays: String(formData.get("expiresInDays") ?? ""),
     memberId: String(formData.get("memberId") ?? ""),
+    role: String(formData.get("role") ?? "MEMBER"),
   });
   if (!parsed.success) return { ok: false, message: firstError(parsed.error) };
 
@@ -64,14 +66,13 @@ export async function createInvite(
   }
 
   await prisma.inviteCode.create({
-    data: { code, label: parsed.data.label, maxUses, expiresAt, memberId },
+    data: { code, label: parsed.data.label, maxUses, expiresAt, memberId, role: parsed.data.role },
   });
 
   revalidatePath("/admin/invites");
-  return {
-    ok: true,
-    message: memberId ? `Claim code ${code} created.` : `Invite code ${code} created.`,
-  };
+  const kind = memberId ? "Claim code" : "Invite code";
+  const grants = parsed.data.role === "ADMIN" ? " It grants admin access." : "";
+  return { ok: true, message: `${kind} ${code} created.${grants}` };
 }
 
 export async function setInviteActive(

@@ -53,14 +53,16 @@ export async function signUpAction(
   // Reserve a use atomically: the WHERE clause re-checks active, expiry and the
   // usage limit in the same statement that increments the counter, so two people
   // submitting the last use of a code cannot both succeed.
-  const reserved = await prisma.$queryRaw<{ id: string; memberId: string | null }[]>`
+  const reserved = await prisma.$queryRaw<
+    { id: string; memberId: string | null; role: "ADMIN" | "MEMBER" }[]
+  >`
     UPDATE "InviteCode"
        SET "usedCount" = "usedCount" + 1, "updatedAt" = now()
      WHERE "code" = ${code}
        AND "isActive" = true
        AND ("expiresAt" IS NULL OR "expiresAt" > now())
        AND ("maxUses" IS NULL OR "usedCount" < "maxUses")
-     RETURNING "id", "memberId"
+     RETURNING "id", "memberId", "role"
   `;
 
   const invite = reserved[0];
@@ -79,7 +81,8 @@ export async function signUpAction(
         data: {
           email,
           passwordHash: await bcrypt.hash(password, BCRYPT_ROUNDS),
-          role: "MEMBER",
+          // The role is whatever the admin baked into this code.
+          role: invite.role,
           // User.memberId is unique, so a second claim of the same profile is
           // rejected by the database rather than by a check that could race.
           memberId: invite.memberId,
@@ -109,9 +112,9 @@ export async function signUpAction(
         data: {
           email,
           passwordHash,
-          // Self-signup always creates an ordinary member bound to its own
-          // profile. Roles are only ever raised by an existing admin.
-          role: "MEMBER",
+          // The role comes from the code, which only an admin can create — a
+          // member can never choose their own.
+          role: invite.role,
           memberId,
         },
       }),
