@@ -21,8 +21,9 @@ export default async function ProfilePage() {
         <PageHeader title="My Profile" />
         <Card className="p-5 text-sm text-navy-700">
           <p>
-            This account is not linked to a member profile, so there is nothing to edit here. If you
-            should have a profile in the directory, please contact the Community administrator.
+            This account is not linked to a member profile, so there is no profile to edit here.
+            Admin accounts do not need one. To appear in the directory yourself, create a member
+            profile under Admin → Members and link it to this account from Admin → Accounts.
           </p>
           <Link
             href="/members"
@@ -31,6 +32,9 @@ export default async function ProfilePage() {
             ← Back to members
           </Link>
         </Card>
+
+        {/* Every account can change its own password, profile or not. */}
+        <PasswordLink />
       </>
     );
   }
@@ -63,11 +67,20 @@ export default async function ProfilePage() {
 
       <MemberForm action={updateMyProfile} member={member} submitLabel="Save my profile" />
 
-      <p className="mt-6 text-center text-sm text-navy-400">
-        <Link href="/profile/password" className="hover:text-navy-700">
-          Change my password
-        </Link>
-      </p>
+      <PasswordLink />
     </>
+  );
+}
+
+function PasswordLink() {
+  return (
+    <p className="mt-6 text-center text-sm">
+      <Link
+        href="/profile/password"
+        className="font-medium text-navy-600 underline decoration-gold-300 underline-offset-4 hover:text-navy-900"
+      >
+        Change my password
+      </Link>
+    </p>
   );
 }
