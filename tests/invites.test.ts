@@ -44,6 +44,22 @@ describe("checkInvite", () => {
   });
 });
 
+describe("claim codes", () => {
+  // A claim code is an ordinary code that also names a profile; the usability
+  // rules must not change just because memberId is set.
+  const claim: InviteLike = { ...base, maxUses: 1 };
+
+  it("is usable while unused and refused once spent", () => {
+    expect(checkInvite({ ...claim, usedCount: 0 }, now).ok).toBe(true);
+    expect(checkInvite({ ...claim, usedCount: 1 }, now).ok).toBe(false);
+  });
+
+  it("is refused when disabled or expired, like any other code", () => {
+    expect(checkInvite({ ...claim, isActive: false }, now).ok).toBe(false);
+    expect(checkInvite({ ...claim, expiresAt: new Date("2020-01-01") }, now).ok).toBe(false);
+  });
+});
+
 describe("normaliseCode", () => {
   it("uppercases and strips whitespace so members can type casually", () => {
     expect(normaliseCode("  gtn-7k4p-qx2m ")).toBe("GTN-7K4P-QX2M");

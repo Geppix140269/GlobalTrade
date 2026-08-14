@@ -15,7 +15,13 @@ function SubmitButton() {
   );
 }
 
-export function CreateInviteForm() {
+export interface ClaimableMember {
+  id: string;
+  name: string;
+  company: string;
+}
+
+export function CreateInviteForm({ members }: { members: ClaimableMember[] }) {
   const [state, formAction] = useActionState<ActionResult | null, FormData>(createInvite, null);
 
   return (
@@ -24,6 +30,21 @@ export function CreateInviteForm() {
         Create an invite code
       </h2>
       <form action={formAction} className="space-y-4">
+        <Field
+          label="Claim an existing profile"
+          hint="Leave as “New members” for a shared code. Pick a person to give them ownership of the profile already in the directory — that code works once and is theirs alone."
+        >
+          <select className={inputClass} name="memberId" defaultValue="">
+            <option value="">New members — creates a fresh profile</option>
+            {members.map((member) => (
+              <option key={member.id} value={member.id}>
+                {member.name}
+                {member.company ? ` — ${member.company}` : ""}
+              </option>
+            ))}
+          </select>
+        </Field>
+
         <Field label="Label" hint="For your reference, e.g. “WhatsApp Community”.">
           <input className={inputClass} name="label" placeholder="WhatsApp Community" />
         </Field>
@@ -38,7 +59,7 @@ export function CreateInviteForm() {
         </Field>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Maximum uses" hint="Blank = unlimited.">
+          <Field label="Maximum uses" hint="Blank = unlimited. Ignored for a claim code, which is always single use.">
             <input className={inputClass} name="maxUses" inputMode="numeric" placeholder="50" />
           </Field>
           <Field label="Expires in (days)" hint="Blank = never.">

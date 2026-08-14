@@ -53,18 +53,46 @@ export async function signUpAction(
   // Reserve a use atomically: the WHERE clause re-checks active, expiry and the
   // usage limit in the same statement that increments the counter, so two people
   // submitting the last use of a code cannot both succeed.
-  const reserved = await prisma.$queryRaw<{ id: string }[]>`
+  const reserved = await prisma.$queryRaw<{ id: string; memberId: string | null }[]>`
     UPDATE "InviteCode"
        SET "usedCount" = "usedCount" + 1, "updatedAt" = now()
      WHERE "code" = ${code}
        AND "isActive" = true
        AND ("expiresAt" IS NULL OR "expiresAt" > now())
        AND ("maxUses" IS NULL OR "usedCount" < "maxUses")
-     RETURNING "id"
+     RETURNING "id", "memberId"
   `;
 
-  const inviteId = reserved[0]?.id;
-  if (!inviteId) return { error: INVALID_CODE };
+  const invite = reserved[0];
+  if (!invite) return { error: INVALID_CODE };
+  const inviteId = invite.id;
+
+  /** Give the reserved use back so a failed signup does not burn a seat. */
+  const releaseUse = () =>
+    prisma.inviteCode.update({ where: { id: inviteId }, data: { usedCount: { decrement: 1 } } });
+
+  // A claim code adopts an existing profile rather than creating a new one, so
+  // the person described by a seeded profile becomes its owner and can edit it.
+  if (invite.memberId) {
+    try {
+      await prisma.user.create({
+        data: {
+          email,
+          passwordHash: await bcrypt.hash(password, BCRYPT_ROUNDS),
+          role: "MEMBER",
+          // User.memberId is unique, so a second claim of the same profile is
+          // rejected by the database rather than by a check that could race.
+          memberId: invite.memberId,
+        },
+      });
+    } catch {
+      await releaseUse();
+      return { error: "That profile has already been claimed. Please contact the administrator." };
+    }
+
+    await signIn("credentials", { email, password, redirectTo: "/profile" });
+    return { error: null };
+  }
 
   try {
     // The member id is generated here rather than by the database so both rows
@@ -89,11 +117,7 @@ export async function signUpAction(
       }),
     ]);
   } catch {
-    // Hand the use back so a failed signup does not burn a seat on the code.
-    await prisma.inviteCode.update({
-      where: { id: inviteId },
-      data: { usedCount: { decrement: 1 } },
-    });
+    await releaseUse();
     return { error: "We could not create your account. Please try again." };
   }
 

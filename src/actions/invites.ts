@@ -14,6 +14,7 @@ const inviteSchema = z.object({
   code: z.string().trim().max(64).default(""),
   maxUses: z.string().trim().default(""),
   expiresInDays: z.string().trim().default(""),
+  memberId: z.string().trim().default(""),
 });
 
 export async function createInvite(
@@ -28,13 +29,26 @@ export async function createInvite(
     code: String(formData.get("code") ?? ""),
     maxUses: String(formData.get("maxUses") ?? ""),
     expiresInDays: String(formData.get("expiresInDays") ?? ""),
+    memberId: String(formData.get("memberId") ?? ""),
   });
   if (!parsed.success) return { ok: false, message: firstError(parsed.error) };
 
   const code = parsed.data.code ? normaliseCode(parsed.data.code) : generateCode();
   if (code.length < 6) return { ok: false, message: "Use a code of at least 6 characters." };
 
-  const maxUses = parsed.data.maxUses ? Number.parseInt(parsed.data.maxUses, 10) : null;
+  // A claim code hands one specific profile to one person, so it is single use
+  // regardless of what was typed in the form.
+  const memberId = parsed.data.memberId || null;
+  if (memberId) {
+    const member = await prisma.member.findUnique({
+      where: { id: memberId },
+      select: { id: true, user: { select: { id: true } } },
+    });
+    if (!member) return { ok: false, message: "That member profile no longer exists." };
+    if (member.user) return { ok: false, message: "That profile already has an account." };
+  }
+
+  const maxUses = memberId ? 1 : parsed.data.maxUses ? Number.parseInt(parsed.data.maxUses, 10) : null;
   if (maxUses !== null && (!Number.isFinite(maxUses) || maxUses < 1)) {
     return { ok: false, message: "Maximum uses must be a whole number of 1 or more." };
   }
@@ -50,11 +64,14 @@ export async function createInvite(
   }
 
   await prisma.inviteCode.create({
-    data: { code, label: parsed.data.label, maxUses, expiresAt },
+    data: { code, label: parsed.data.label, maxUses, expiresAt, memberId },
   });
 
   revalidatePath("/admin/invites");
-  return { ok: true, message: `Invite code ${code} created.` };
+  return {
+    ok: true,
+    message: memberId ? `Claim code ${code} created.` : `Invite code ${code} created.`,
+  };
 }
 
 export async function setInviteActive(
