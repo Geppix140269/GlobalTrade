@@ -1,5 +1,6 @@
 "use server";
 
+import { randomUUID } from "node:crypto";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
@@ -66,21 +67,27 @@ export async function signUpAction(
   if (!inviteId) return { error: INVALID_CODE };
 
   try {
-    await prisma.$transaction(async (tx) => {
-      const member = await tx.member.create({
-        data: { name, company, status: "ACTIVE" },
-      });
-      await tx.user.create({
+    // The member id is generated here rather than by the database so both rows
+    // can go in the batch form of $transaction. The interactive form needs a
+    // session pinned to one connection, which a transaction-mode pooler
+    // (Neon's and Supabase's are both PgBouncer) does not provide — it works
+    // against a direct connection and fails in production.
+    const memberId = randomUUID();
+    const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
+
+    await prisma.$transaction([
+      prisma.member.create({ data: { id: memberId, name, company, status: "ACTIVE" } }),
+      prisma.user.create({
         data: {
           email,
-          passwordHash: await bcrypt.hash(password, BCRYPT_ROUNDS),
+          passwordHash,
           // Self-signup always creates an ordinary member bound to its own
           // profile. Roles are only ever raised by an existing admin.
           role: "MEMBER",
-          memberId: member.id,
+          memberId,
         },
-      });
-    });
+      }),
+    ]);
   } catch {
     // Hand the use back so a failed signup does not burn a seat on the code.
     await prisma.inviteCode.update({
