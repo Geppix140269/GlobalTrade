@@ -9,7 +9,12 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  // Pooled connection, used by the running app (Supabase pooler / Neon pooled URL).
+  url       = env("DATABASE_URL")
+  // Direct connection, used by `prisma db push` and `prisma migrate`, which cannot
+  // run through a transaction pooler. Set it to the same value as DATABASE_URL if
+  // your provider does not use a pooler.
+  directUrl = env("DIRECT_URL")
 }
 
 enum Role {

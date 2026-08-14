@@ -3,10 +3,15 @@ import { prisma } from "@/lib/prisma";
 import { setMemberStatus } from "@/actions/profile";
 import { Card, EmptyState, PageHeader, StatusPill } from "@/components/ui";
 import { InlineAction } from "@/components/InlineAction";
+import { requireAdmin } from "@/lib/session";
 
 export const metadata = { title: "Admin · Members — Global Trade Network" };
 
 export default async function AdminMembersPage() {
+  // Guarded by the admin layout as well; repeated here so this page never
+  // renders or queries anything on its own if the layout changes.
+  await requireAdmin();
+
   const members = await prisma.member.findMany({
     orderBy: [{ status: "asc" }, { name: "asc" }],
     include: { user: { select: { id: true, email: true, isActive: true } } },

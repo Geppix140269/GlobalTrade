@@ -4,8 +4,13 @@ import { prisma } from "@/lib/prisma";
 import { updateOpportunity } from "@/actions/opportunities";
 import { OpportunityForm } from "@/components/OpportunityForm";
 import { PageHeader } from "@/components/ui";
+import { requireAdmin } from "@/lib/session";
 
 export default async function EditRequestPage({ params }: { params: Promise<{ id: string }> }) {
+  // Guarded by the admin layout as well; repeated here so this page never
+  // renders or queries anything on its own if the layout changes.
+  await requireAdmin();
+
   const { id } = await params;
 
   const [opportunity, members] = await Promise.all([

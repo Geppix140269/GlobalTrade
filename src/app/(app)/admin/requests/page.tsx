@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { setOpportunityStatus } from "@/actions/opportunities";
 import { Card, EmptyState, PageHeader, StatusPill, Tag } from "@/components/ui";
 import { InlineAction } from "@/components/InlineAction";
+import { requireAdmin } from "@/lib/session";
 
 export const metadata = { title: "Admin · Requests — Global Trade Network" };
 
@@ -21,6 +22,10 @@ const NEXT_STATUS: Record<string, { status: string; label: string }[]> = {
 };
 
 export default async function AdminRequestsPage() {
+  // Guarded by the admin layout as well; repeated here so this page never
+  // renders or queries anything on its own if the layout changes.
+  await requireAdmin();
+
   const requests = await prisma.opportunity.findMany({
     orderBy: [{ status: "asc" }, { dateAdded: "desc" }],
     include: { relevantMembers: { select: { id: true, name: true } } },

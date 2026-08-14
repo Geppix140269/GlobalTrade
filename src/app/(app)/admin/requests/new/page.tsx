@@ -3,10 +3,15 @@ import { prisma } from "@/lib/prisma";
 import { createOpportunity } from "@/actions/opportunities";
 import { OpportunityForm } from "@/components/OpportunityForm";
 import { PageHeader } from "@/components/ui";
+import { requireAdmin } from "@/lib/session";
 
 export const metadata = { title: "Admin · Add request — Global Trade Network" };
 
 export default async function NewRequestPage() {
+  // Guarded by the admin layout as well; repeated here so this page never
+  // renders or queries anything on its own if the layout changes.
+  await requireAdmin();
+
   const members = await prisma.member.findMany({
     where: { status: "ACTIVE" },
     select: { id: true, name: true, company: true },

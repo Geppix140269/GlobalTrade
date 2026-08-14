@@ -39,11 +39,34 @@ npm run dev                    # http://localhost:3000
 Set these in `.env.local` locally and in Vercel → Settings → Environment Variables.
 Never commit real values; `.env.example` lists names only.
 
-| Variable       | Required | Purpose                                                          |
-| -------------- | -------- | ---------------------------------------------------------------- |
-| `DATABASE_URL` | yes      | PostgreSQL connection string. Use the pooled URL in production.   |
-| `AUTH_SECRET`  | yes      | Signs session cookies. Generate with `openssl rand -base64 32`.   |
-| `NEXTAUTH_URL` | local    | Base URL when developing. Vercel sets this automatically.         |
+| Variable       | Required | Purpose                                                              |
+| -------------- | -------- | -------------------------------------------------------------------- |
+| `DATABASE_URL` | yes      | Pooled PostgreSQL URL used by the running app.                        |
+| `DIRECT_URL`   | yes      | Direct (non-pooled) URL used by `prisma db push`. Same as above if your provider has no pooler. |
+| `AUTH_SECRET`  | yes      | Signs session cookies. Generate with `openssl rand -base64 32`.       |
+| `NEXTAUTH_URL` | local    | Base URL when developing. Vercel sets this automatically.             |
+
+### Sharing a database with another product
+
+The directory needs its own PostgreSQL **schema**, not its own server. To run it inside
+an existing Supabase (or any Postgres) project without touching what is already there,
+append `&schema=gtn` to both URLs. Prisma then creates `gtn.Member`, `gtn.User` and
+`gtn.Opportunity`, leaving `public` untouched.
+
+The data model has no foreign keys to anything outside these three tables, so it stays
+independent of whatever else lives in that database and can be lifted out at any time.
+
+If you do share a project, give the app its own database role restricted to the `gtn`
+schema. Then a mistake or a compromise here cannot reach the other product's data:
+
+```sql
+create schema if not exists gtn;
+create role gtn_app login password '<a-strong-password>';
+grant usage, create on schema gtn to gtn_app;
+alter default privileges in schema gtn grant all on tables to gtn_app;
+```
+
+Use that role in `DATABASE_URL` / `DIRECT_URL` rather than the project's superuser.
 
 `ADMIN_EMAIL` / `ADMIN_PASSWORD` are read only by `npm run create:admin`. Pass them on
 the command line rather than storing them in a file.
@@ -155,16 +178,22 @@ one, every profile write already funnels through `applyMemberProfileUpdate()` in
 1. Push this repository to GitHub (private).
 2. In Vercel, **Add New → Project** and import it. The framework preset is detected;
    the build command `prisma generate && next build` is already in `package.json`.
-3. Provision PostgreSQL — Vercel Postgres, Neon or Supabase all work.
-4. Set `DATABASE_URL` and `AUTH_SECRET` for Production (and Preview if you use it).
+3. Provision PostgreSQL — Vercel Postgres, Neon or Supabase all work. To reuse an
+   existing project, see *Sharing a database with another product* above.
+4. Set `DATABASE_URL`, `DIRECT_URL` and `AUTH_SECRET` for Production (and Preview if
+   you use it).
 5. Deploy.
-6. Prepare the database once, from your machine, pointing at production:
+6. Prepare the database once, from your own machine, pointing at production. Clone the
+   repo, run `npm install`, then:
 
    ```bash
-   DATABASE_URL='<production-url>' npm run db:push
-   DATABASE_URL='<production-url>' npm run db:seed
-   DATABASE_URL='<production-url>' ADMIN_EMAIL=you@example.com \
-     ADMIN_PASSWORD='a-long-passphrase' npm run create:admin
+   export DATABASE_URL='<pooled-production-url>'
+   export DIRECT_URL='<direct-production-url>'
+
+   npm run db:push        # create the tables
+   npm run db:seed        # load the founding members and their requests
+
+   ADMIN_EMAIL=you@example.com ADMIN_PASSWORD='a-long-passphrase' npm run create:admin
    ```
 
 7. Sign in and create the member logins from **Admin → Accounts**.
