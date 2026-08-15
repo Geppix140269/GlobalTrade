@@ -49,6 +49,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <ul className="mx-auto flex w-full max-w-[var(--pt-measure-page)] gap-0 overflow-x-auto px-[var(--pt-gutter)] whitespace-nowrap">
             <NavLink href="/members">Members</NavLink>
             <NavLink href="/requests">Active Requests</NavLink>
+            <NavLink href="/ledger">The Ledger</NavLink>
             <NavLink href="/profile">My Profile</NavLink>
             {admin ? <NavLink href="/admin">Admin</NavLink> : null}
           </ul>
