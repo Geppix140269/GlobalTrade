@@ -30,7 +30,8 @@ export default async function AdminInvitesPage() {
   ]);
 
   const host = headerList.get("host") ?? "";
-  const proto = headerList.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
+  const proto =
+    headerList.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = host ? `${proto}://${host}` : "";
   const linkFor = (code: string) => `${origin}/signup?code=${code}`;
 
@@ -40,7 +41,10 @@ export default async function AdminInvitesPage() {
 
   return (
     <>
-      <Link href="/admin" className="mb-3 inline-block text-sm text-navy-400 hover:text-navy-700">
+      <Link
+        href="/admin"
+        className="mb-3 inline-block text-sm text-[var(--pf-ink-3)] hover:text-[var(--pf-ink-2)]"
+      >
         ← Back to admin
       </Link>
 
@@ -50,12 +54,12 @@ export default async function AdminInvitesPage() {
       />
 
       {unclaimedWithoutCode.length > 0 ? (
-        <div className="mb-5 rounded-xl border border-gold-300 bg-gold-100 p-4">
-          <h2 className="text-sm font-semibold text-gold-600">
+        <div className="mb-5 border border-[var(--pf-gold-rule)] bg-[var(--pf-sunken)] p-4">
+          <h2 className="text-sm font-semibold text-[var(--pf-gold-ink)]">
             {unclaimedWithoutCode.length} profile
             {unclaimedWithoutCode.length === 1 ? "" : "s"} nobody owns yet
           </h2>
-          <p className="mt-1 text-sm text-navy-700">
+          <p className="mt-1 text-sm text-[var(--pf-ink-2)]">
             {unclaimedWithoutCode.map((m) => m.name).join(", ")}. If you send these people the
             shared code they will create a second, empty profile. Issue each of them a claim code
             below instead, so they take over the profile already in the directory.
@@ -79,7 +83,7 @@ export default async function AdminInvitesPage() {
                 <Card className="p-4">
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="font-mono text-lg font-semibold tracking-wider break-all text-navy-900">
+                      <p className="font-mono text-lg font-semibold tracking-wider break-all text-[var(--pf-ink)]">
                         {invite.code}
                       </p>
                       <div className="mt-0.5 flex flex-wrap gap-1.5">
@@ -89,9 +93,9 @@ export default async function AdminInvitesPage() {
                         {invite.role === "ADMIN" ? <Tag tone="gold">Grants admin</Tag> : null}
                       </div>
                       {invite.label ? (
-                        <p className="mt-1 text-sm text-navy-600">{invite.label}</p>
+                        <p className="mt-1 text-sm text-[var(--pf-ink-2)]">{invite.label}</p>
                       ) : null}
-                      <p className="mt-1 text-xs text-navy-400">
+                      <p className="mt-1 text-xs text-[var(--pf-ink-3)]">
                         Used {invite.usedCount} of {uses}
                         {invite.expiresAt
                           ? ` · expires ${invite.expiresAt.toISOString().slice(0, 10)}`
@@ -102,9 +106,9 @@ export default async function AdminInvitesPage() {
                   </div>
 
                   {usable && origin ? (
-                    <div className="mt-3 rounded-lg border border-navy-100 bg-navy-50 p-2.5">
-                      <p className="text-xs font-medium text-navy-400">Link to share</p>
-                      <p className="mt-0.5 font-mono text-xs break-all text-navy-800 select-all">
+                    <div className="mt-3 border border-[var(--pf-rule)] bg-[var(--pf-sunken)] p-2.5">
+                      <p className="text-xs font-medium text-[var(--pf-ink-3)]">Link to share</p>
+                      <p className="mt-0.5 font-mono text-xs break-all text-[var(--pf-ink)] select-all">
                         {linkFor(invite.code)}
                       </p>
                     </div>

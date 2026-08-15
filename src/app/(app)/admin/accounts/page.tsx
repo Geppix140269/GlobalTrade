@@ -35,7 +35,10 @@ export default async function AdminAccountsPage() {
 
   return (
     <>
-      <Link href="/admin" className="mb-3 inline-block text-sm text-navy-400 hover:text-navy-700">
+      <Link
+        href="/admin"
+        className="mb-3 inline-block text-sm text-[var(--pf-ink-3)] hover:text-[var(--pf-ink-2)]"
+      >
         ← Back to admin
       </Link>
 
@@ -57,28 +60,28 @@ export default async function AdminAccountsPage() {
               <Card className="p-4">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <h2 className="font-semibold break-all text-navy-900">{user.email}</h2>
-                    <p className="mt-1 text-sm text-navy-600">
+                    <h2 className="font-semibold break-all text-[var(--pf-ink)]">{user.email}</h2>
+                    <p className="mt-1 text-sm text-[var(--pf-ink-2)]">
                       {user.member ? (
                         <Link
                           href={`/members/${user.member.id}`}
-                          className="underline decoration-gold-300 underline-offset-2"
+                          className="underline decoration-[var(--pf-gold-rule)] underline-offset-2"
                         >
                           {user.member.name}
                         </Link>
                       ) : (
-                        <span className="text-navy-400">No linked profile</span>
+                        <span className="text-[var(--pf-ink-3)]">No linked profile</span>
                       )}
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <Tag tone={user.role === "ADMIN" ? "gold" : "navy"}>{user.role}</Tag>
+                    <Tag tone={user.role === "ADMIN" ? "gold" : "plain"}>{user.role}</Tag>
                     <StatusPill status={user.isActive ? "ACTIVE" : "INACTIVE"} />
                   </div>
                 </div>
 
                 {user.mustChangePassword ? (
-                  <p className="mt-2 text-xs text-gold-600">
+                  <p className="mt-2 text-xs text-[var(--pf-gold-ink)]">
                     Password was set by an admin and has not been changed yet.
                   </p>
                 ) : null}

@@ -41,7 +41,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const email = parsed.data.email.trim().toLowerCase();
         const user = await prisma.user.findUnique({
           where: { email },
-          select: { id: true, email: true, passwordHash: true, role: true, isActive: true, memberId: true },
+          select: {
+            id: true,
+            email: true,
+            passwordHash: true,
+            role: true,
+            isActive: true,
+            memberId: true,
+          },
         });
 
         // Compare against a dummy hash when the user is missing so that a wrong

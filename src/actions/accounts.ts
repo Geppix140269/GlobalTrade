@@ -140,7 +140,10 @@ export async function changeMyPassword(
 
   await prisma.user.update({
     where: { id: actor.id },
-    data: { passwordHash: await bcrypt.hash(parsed.data, BCRYPT_ROUNDS), mustChangePassword: false },
+    data: {
+      passwordHash: await bcrypt.hash(parsed.data, BCRYPT_ROUNDS),
+      mustChangePassword: false,
+    },
   });
   return { ok: true, message: "Password changed." };
 }

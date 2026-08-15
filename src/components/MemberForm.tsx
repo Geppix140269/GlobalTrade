@@ -54,7 +54,9 @@ function SaveButton({ label }: { label: string }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <Card className="space-y-4 p-4 sm:p-5">
-      <h2 className="text-sm font-semibold tracking-wide text-navy-400 uppercase">{title}</h2>
+      <h2 className="text-sm font-semibold tracking-wide text-[var(--pf-ink-3)] uppercase">
+        {title}
+      </h2>
       {children}
     </Card>
   );
@@ -187,7 +189,7 @@ export function MemberForm({
 
       {state ? <Notice ok={state.ok}>{state.message}</Notice> : null}
 
-      <div className="sticky bottom-0 -mx-4 border-t border-navy-100 bg-sand/95 px-4 py-3 backdrop-blur sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none">
+      <div className="sm: sticky bottom-0 -mx-4 border-t border-[var(--pf-rule)] bg-[var(--pf-surface)] px-4 py-3 sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:p-0">
         <SaveButton label={submitLabel} />
       </div>
     </form>

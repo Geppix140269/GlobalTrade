@@ -10,7 +10,10 @@ export default async function PasswordPage() {
 
   return (
     <>
-      <Link href="/profile" className="mb-3 inline-block text-sm text-navy-400 hover:text-navy-700">
+      <Link
+        href="/profile"
+        className="mb-3 inline-block text-sm text-[var(--pf-ink-3)] hover:text-[var(--pf-ink-2)]"
+      >
         ← Back to my profile
       </Link>
       <PageHeader title="Change password" />

@@ -1,64 +1,82 @@
 import type { ReactNode } from "react";
 
+/**
+ * The shared primitives, drawn to the adopted design language.
+ *
+ * Structure is rules, never shadows or  cards. Headings are serif,
+ * sentences are sans, labels and states are mono. Gold is the keystone and
+ * never a status.
+ */
+
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return (
-    <div
-      className={`rounded-xl border border-navy-100 bg-white shadow-[0_1px_2px_rgba(13,26,49,0.06)] ${className}`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={`gt-record ${className}`}>{children}</div>;
 }
 
 export function PageHeader({
   title,
   subtitle,
+  label,
   action,
 }: {
   title: string;
   subtitle?: string;
+  /** The mono classification above the title. */
+  label?: string;
   action?: ReactNode;
 }) {
   return (
-    <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
-      <div>
-        <h1 className="text-xl font-semibold tracking-tight text-navy-900 sm:text-2xl">{title}</h1>
-        {subtitle ? <p className="mt-1 text-sm text-navy-400">{subtitle}</p> : null}
+    <header className="mb-6 border-b border-[var(--pf-rule)] pb-4">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="min-w-0">
+          {label ? <p className="gt-label gt-label--gold mb-2">{label}</p> : null}
+          <h1 className="gt-heading">{title}</h1>
+          {subtitle ? <p className="gt-prose mt-1.5">{subtitle}</p> : null}
+        </div>
+        {action}
       </div>
-      {action}
-    </div>
+    </header>
   );
 }
 
-export function Tag({ children, tone = "navy" }: { children: ReactNode; tone?: "navy" | "gold" }) {
-  const styles =
+/** A mono classification chip. Carries a market, an expertise, a country. */
+export function Tag({
+  children,
+  tone = "plain",
+}: {
+  children: ReactNode;
+  tone?: "plain" | "gold";
+}) {
+  const style =
     tone === "gold"
-      ? "bg-gold-100 text-gold-600 border-gold-300"
-      : "bg-navy-50 text-navy-600 border-navy-100";
+      ? "border-[var(--pf-gold-rule)] text-[var(--pf-gold-ink)]"
+      : "border-[var(--pf-rule)] text-[var(--pf-ink-2)]";
   return (
-    <span className={`inline-block rounded-full border px-2.5 py-0.5 text-xs font-medium ${styles}`}>
+    <span
+      className={`inline-block border px-2 py-1 font-mono text-(length:--pt-mono-caption) tracking-[var(--pt-ls-count)] uppercase ${style}`}
+    >
       {children}
     </span>
   );
 }
 
-const STATUS_STYLES: Record<string, string> = {
-  OPEN: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  IN_PROGRESS: "bg-sky-50 text-sky-700 border-sky-200",
-  MATCHED: "bg-gold-100 text-gold-600 border-gold-300",
-  ON_HOLD: "bg-amber-50 text-amber-700 border-amber-200",
-  CLOSED: "bg-navy-50 text-navy-400 border-navy-100",
-  ACTIVE: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  INACTIVE: "bg-amber-50 text-amber-700 border-amber-200",
-  ARCHIVED: "bg-navy-50 text-navy-400 border-navy-100",
+/**
+ * State colours come from the token set's state ramp. Gold is deliberately
+ * absent: the design forbids it meaning verification, approval or success.
+ */
+const STATE_COLOUR: Record<string, string> = {
+  OPEN: "text-[var(--pf-positive)]",
+  IN_PROGRESS: "text-[var(--pf-review)]",
+  MATCHED: "text-[var(--pf-positive)]",
+  ON_HOLD: "text-[var(--pf-declared)]",
+  CLOSED: "text-[var(--pf-mute)]",
+  ACTIVE: "text-[var(--pf-positive)]",
+  INACTIVE: "text-[var(--pf-declared)]",
+  ARCHIVED: "text-[var(--pf-mute)]",
 };
 
 export function StatusPill({ status }: { status: string }) {
-  const style = STATUS_STYLES[status] ?? "bg-navy-50 text-navy-600 border-navy-100";
   return (
-    <span
-      className={`inline-block rounded-full border px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap ${style}`}
-    >
+    <span className={`gt-state ${STATE_COLOUR[status] ?? "text-[var(--pf-ink-3)]"}`}>
       {status.replace(/_/g, " ")}
     </span>
   );
@@ -75,57 +93,55 @@ export function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-sm font-medium text-navy-700">{label}</span>
+      <span className="gt-label mb-1.5 block">{label}</span>
       {children}
-      {hint ? <span className="mt-1 block text-xs text-navy-400">{hint}</span> : null}
+      {hint ? (
+        <span className="mt-1.5 block font-sans text-(length:--pt-caption) text-[var(--pf-ink-3)]">
+          {hint}
+        </span>
+      ) : null}
     </label>
   );
 }
 
-export const inputClass =
-  "w-full rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-navy-900 " +
-  "placeholder:text-navy-200 focus:border-navy-600 focus:outline-none " +
-  "focus:ring-2 focus:ring-navy-600/15";
+export const inputClass = "gt-field";
+export const buttonClass = "gt-act gt-act--primary";
+export const secondaryButtonClass = "gt-act";
 
-export const buttonClass =
-  "inline-flex items-center justify-center rounded-lg bg-navy-800 px-4 py-2.5 " +
-  "font-medium text-white transition-colors hover:bg-navy-700 active:bg-navy-900 " +
-  "disabled:cursor-not-allowed disabled:opacity-60";
-
-export const secondaryButtonClass =
-  "inline-flex items-center justify-center rounded-lg border border-navy-200 bg-white " +
-  "px-4 py-2.5 font-medium text-navy-700 transition-colors hover:bg-navy-50 " +
-  "disabled:cursor-not-allowed disabled:opacity-60";
-
+/**
+ * The outcome of an action. A refusal is drawn in the danger ink and a
+ * completion in the positive ink — both as a rule and a word, never colour
+ * alone, so the meaning survives a monochrome screen.
+ */
 export function Notice({ ok, children }: { ok: boolean; children: ReactNode }) {
+  const tone = ok
+    ? "border-[var(--pf-positive)] text-[var(--pf-positive)]"
+    : "border-[var(--pf-danger)] text-[var(--pf-danger)]";
   return (
-    <p
-      role="status"
-      className={`rounded-lg border px-3 py-2 text-sm ${
-        ok
-          ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-          : "border-red-200 bg-red-50 text-red-800"
-      }`}
-    >
-      {children}
+    <p role="status" className={`border-l-2 py-2 pl-3 text-(length:--pt-prose) ${tone}`}>
+      <span className="gt-label mr-2 align-middle" style={{ color: "inherit" }}>
+        {ok ? "Saved" : "Refused"}
+      </span>
+      <span className="align-middle text-[var(--pf-ink-2)]">{children}</span>
     </p>
   );
 }
 
 export function EmptyState({ children }: { children: ReactNode }) {
   return (
-    <Card className="p-8 text-center text-sm text-navy-400">
-      <p>{children}</p>
-    </Card>
+    <div className="gt-record p-8 text-center">
+      <p className="gt-prose mx-auto">{children}</p>
+    </div>
   );
 }
 
+/** A mono label over a sans value — the key/value row the design uses. */
 export function DetailBlock({ label, value }: { label: string; value: string }) {
   if (!value) return null;
   return (
     <div>
-      <h3 className="text-xs font-semibold tracking-wide text-navy-400 uppercase">{label}</h3>
-      <p className="mt-1 whitespace-pre-line text-navy-800">{value}</p>
+      <h3 className="gt-label">{label}</h3>
+      <p className="gt-prose mt-1.5 whitespace-pre-line">{value}</p>
     </div>
   );
 }

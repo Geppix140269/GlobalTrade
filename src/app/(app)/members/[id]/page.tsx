@@ -5,11 +5,7 @@ import { requireUser } from "@/lib/session";
 import { canEditMember, isAdmin } from "@/lib/authz";
 import { Card, DetailBlock, PageHeader, StatusPill, Tag } from "@/components/ui";
 
-export default async function MemberDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function MemberDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const actor = await requireUser();
   const { id } = await params;
 
@@ -41,7 +37,10 @@ export default async function MemberDetailPage({
 
   return (
     <>
-      <Link href="/members" className="mb-3 inline-block text-sm text-navy-400 hover:text-navy-700">
+      <Link
+        href="/members"
+        className="mb-3 inline-block text-sm text-[var(--pf-ink-3)] hover:text-[var(--pf-ink-2)]"
+      >
         ← Back to members
       </Link>
 
@@ -52,7 +51,7 @@ export default async function MemberDetailPage({
           canEdit ? (
             <Link
               href={isOwnProfile ? "/profile" : `/admin/members/${member.id}`}
-              className="rounded-lg border border-navy-200 bg-white px-3.5 py-2 text-sm font-medium text-navy-700 hover:bg-navy-50"
+              className="border border-[var(--pf-rule-strong)] bg-[var(--pf-raised)] px-3.5 py-2 text-sm font-medium text-[var(--pf-ink-2)] hover:bg-[var(--pf-sunken)]"
             >
               {isOwnProfile ? "Edit my profile" : "Edit as admin"}
             </Link>
@@ -69,9 +68,7 @@ export default async function MemberDetailPage({
 
           {member.markets.length > 0 ? (
             <div>
-              <h3 className="text-xs font-semibold tracking-wide text-navy-400 uppercase">
-                Markets covered
-              </h3>
+              <h3 className="gt-label">Markets covered</h3>
               <div className="mt-1.5 flex flex-wrap gap-1.5">
                 {member.markets.map((market) => (
                   <Tag key={market}>{market}</Tag>
@@ -82,9 +79,7 @@ export default async function MemberDetailPage({
 
           {member.expertise.length > 0 ? (
             <div>
-              <h3 className="text-xs font-semibold tracking-wide text-navy-400 uppercase">
-                Products / services / expertise
-              </h3>
+              <h3 className="gt-label">Products / services / expertise</h3>
               <div className="mt-1.5 flex flex-wrap gap-1.5">
                 {member.expertise.map((item) => (
                   <Tag key={item}>{item}</Tag>
@@ -101,13 +96,13 @@ export default async function MemberDetailPage({
 
         {contact.length > 0 ? (
           <Card className="p-4 sm:p-5">
-            <h3 className="text-xs font-semibold tracking-wide text-navy-400 uppercase">Contact</h3>
+            <h3 className="gt-label">Contact</h3>
             <ul className="mt-2 space-y-1.5 text-sm">
               {contact.map((item) => (
                 <li key={item.label} className="flex flex-wrap gap-x-2">
-                  <span className="text-navy-400">{item.label}:</span>
+                  <span className="text-[var(--pf-ink-3)]">{item.label}:</span>
                   <a
-                    className="break-all text-navy-700 underline decoration-gold-300 underline-offset-2"
+                    className="break-all text-[var(--pf-ink-2)] underline decoration-[var(--pf-gold-rule)] underline-offset-2"
                     href={item.href}
                     rel="noreferrer noopener"
                     target="_blank"
@@ -122,20 +117,18 @@ export default async function MemberDetailPage({
 
         {member.requests.length > 0 ? (
           <Card className="p-4 sm:p-5">
-            <h3 className="text-xs font-semibold tracking-wide text-navy-400 uppercase">
-              Active requests from this member
-            </h3>
+            <h3 className="gt-label">Active requests from this member</h3>
             <ul className="mt-2 space-y-2">
               {member.requests.map((request) => (
                 <li key={request.id} className="flex flex-wrap items-start gap-2 text-sm">
                   <StatusPill status={request.status} />
-                  <span className="flex-1 text-navy-700">{request.request}</span>
+                  <span className="flex-1 text-[var(--pf-ink-2)]">{request.request}</span>
                 </li>
               ))}
             </ul>
             <Link
               href="/requests"
-              className="mt-3 inline-block text-sm text-navy-400 hover:text-navy-700"
+              className="mt-3 inline-block text-sm text-[var(--pf-ink-3)] hover:text-[var(--pf-ink-2)]"
             >
               View all active requests →
             </Link>
@@ -144,21 +137,19 @@ export default async function MemberDetailPage({
 
         {member.relevantFor.length > 0 ? (
           <Card className="p-4 sm:p-5">
-            <h3 className="text-xs font-semibold tracking-wide text-navy-400 uppercase">
-              Could contribute to
-            </h3>
+            <h3 className="gt-label">Could contribute to</h3>
             <ul className="mt-2 space-y-2">
               {member.relevantFor.map((request) => (
                 <li key={request.id} className="flex flex-wrap items-start gap-2 text-sm">
                   <StatusPill status={request.status} />
-                  <span className="flex-1 text-navy-700">{request.request}</span>
+                  <span className="flex-1 text-[var(--pf-ink-2)]">{request.request}</span>
                 </li>
               ))}
             </ul>
           </Card>
         ) : null}
 
-        <p className="px-1 text-xs text-navy-400">
+        <p className="px-1 text-xs text-[var(--pf-ink-3)]">
           Last updated {member.updatedAt.toISOString().slice(0, 10)}
         </p>
       </div>

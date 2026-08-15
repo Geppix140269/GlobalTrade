@@ -7,7 +7,10 @@ export interface LoginState {
   error: string | null;
 }
 
-export async function loginAction(_prev: LoginState | null, formData: FormData): Promise<LoginState> {
+export async function loginAction(
+  _prev: LoginState | null,
+  formData: FormData,
+): Promise<LoginState> {
   try {
     await signIn("credentials", {
       email: String(formData.get("email") ?? ""),

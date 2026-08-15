@@ -31,7 +31,7 @@ export default async function EditRequestPage({ params }: { params: Promise<{ id
     <>
       <Link
         href="/admin/requests"
-        className="mb-3 inline-block text-sm text-navy-400 hover:text-navy-700"
+        className="mb-3 inline-block text-sm text-[var(--pf-ink-3)] hover:text-[var(--pf-ink-2)]"
       >
         ← Back to requests
       </Link>

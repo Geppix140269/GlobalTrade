@@ -1,4 +1,10 @@
-/** Understated circular network mark — navy ring, gold nodes. */
+/**
+ * The network mark: an ink ring with gold nodes.
+ *
+ * Drawn at the line law's stroke weight, with no fill and no rounding. The
+ * ring takes `currentColor` so the mark inverts with its ground; only the
+ * nodes are fixed, because gold is the keystone on both grounds.
+ */
 export function Logo({ size = 32 }: { size?: number }) {
   return (
     <svg
@@ -9,12 +15,25 @@ export function Logo({ size = 32 }: { size?: number }) {
       aria-hidden="true"
       className="shrink-0"
     >
-      <circle cx="24" cy="24" r="21" stroke="currentColor" strokeWidth="2" opacity="0.9" />
-      <ellipse cx="24" cy="24" rx="10" ry="21" stroke="currentColor" strokeWidth="1.4" opacity="0.5" />
-      <path d="M3.6 17.5h40.8M3.6 30.5h40.8" stroke="currentColor" strokeWidth="1.4" opacity="0.5" />
-      <circle cx="24" cy="3" r="3.1" fill="var(--color-gold-500)" />
-      <circle cx="41" cy="30.5" r="3.1" fill="var(--color-gold-500)" />
-      <circle cx="7" cy="30.5" r="3.1" fill="var(--color-gold-500)" />
+      <circle cx="24" cy="24" r="20" stroke="currentColor" strokeWidth="1.75" />
+      <ellipse
+        cx="24"
+        cy="24"
+        rx="9.5"
+        ry="20"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        opacity="0.55"
+      />
+      <path
+        d="M4.4 17.5h39.2M4.4 30.5h39.2"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        opacity="0.55"
+      />
+      <circle cx="24" cy="4" r="3.4" fill="var(--pf-gold)" />
+      <circle cx="41.3" cy="30.5" r="3.4" fill="var(--pf-gold)" />
+      <circle cx="6.7" cy="30.5" r="3.4" fill="var(--pf-gold)" />
     </svg>
   );
 }

@@ -19,7 +19,7 @@ export default async function ProfilePage() {
     return (
       <>
         <PageHeader title="My Profile" />
-        <Card className="p-5 text-sm text-navy-700">
+        <Card className="p-5 text-sm text-[var(--pf-ink-2)]">
           <p>
             This account is not linked to a member profile, so there is no profile to edit here.
             Admin accounts do not need one. To appear in the directory yourself, create a member
@@ -27,7 +27,7 @@ export default async function ProfilePage() {
           </p>
           <Link
             href="/members"
-            className="mt-3 inline-block text-navy-400 hover:text-navy-700"
+            className="mt-3 inline-block text-[var(--pf-ink-3)] hover:text-[var(--pf-ink-2)]"
           >
             ← Back to members
           </Link>
@@ -49,7 +49,7 @@ export default async function ProfilePage() {
         action={
           <Link
             href={`/members/${member.id}`}
-            className="rounded-lg border border-navy-200 bg-white px-3.5 py-2 text-sm font-medium text-navy-700 hover:bg-navy-50"
+            className="border border-[var(--pf-rule-strong)] bg-[var(--pf-raised)] px-3.5 py-2 text-sm font-medium text-[var(--pf-ink-2)] hover:bg-[var(--pf-sunken)]"
           >
             View as others see it
           </Link>
@@ -57,9 +57,9 @@ export default async function ProfilePage() {
       />
 
       {!completion.complete ? (
-        <div className="mb-4 rounded-xl border border-gold-300 bg-gold-100 p-4">
-          <h2 className="text-sm font-semibold text-gold-600">Complete your profile</h2>
-          <p className="mt-1 text-sm text-navy-700">
+        <div className="mb-4 border border-[var(--pf-gold-rule)] bg-[var(--pf-sunken)] p-4">
+          <h2 className="text-sm font-semibold text-[var(--pf-gold-ink)]">Complete your profile</h2>
+          <p className="mt-1 text-sm text-[var(--pf-ink-2)]">
             Still missing: {completion.missing.join(", ")}.
           </p>
         </div>
@@ -77,7 +77,7 @@ function PasswordLink() {
     <p className="mt-6 text-center text-sm">
       <Link
         href="/profile/password"
-        className="font-medium text-navy-600 underline decoration-gold-300 underline-offset-4 hover:text-navy-900"
+        className="font-medium text-[var(--pf-ink-2)] underline decoration-[var(--pf-gold-rule)] underline-offset-4 hover:text-[var(--pf-ink)]"
       >
         Change my password
       </Link>

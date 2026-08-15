@@ -26,9 +26,7 @@ export function CreateInviteForm({ members }: { members: ClaimableMember[] }) {
 
   return (
     <Card className="p-4 sm:p-5">
-      <h2 className="mb-3 text-sm font-semibold tracking-wide text-navy-400 uppercase">
-        Create an invite code
-      </h2>
+      <h2 className="gt-label mb-3">Create an invite code</h2>
       <form action={formAction} className="space-y-4">
         <Field
           label="Claim an existing profile"
@@ -69,7 +67,10 @@ export function CreateInviteForm({ members }: { members: ClaimableMember[] }) {
         </Field>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Maximum uses" hint="Blank = unlimited. Ignored for a claim code, which is always single use.">
+          <Field
+            label="Maximum uses"
+            hint="Blank = unlimited. Ignored for a claim code, which is always single use."
+          >
             <input className={inputClass} name="maxUses" inputMode="numeric" placeholder="50" />
           </Field>
           <Field label="Expires in (days)" hint="Blank = never.">

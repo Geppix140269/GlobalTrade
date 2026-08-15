@@ -33,7 +33,10 @@ export default async function AdminRequestsPage() {
 
   return (
     <>
-      <Link href="/admin" className="mb-3 inline-block text-sm text-navy-400 hover:text-navy-700">
+      <Link
+        href="/admin"
+        className="mb-3 inline-block text-sm text-[var(--pf-ink-3)] hover:text-[var(--pf-ink-2)]"
+      >
         ← Back to admin
       </Link>
 
@@ -43,7 +46,7 @@ export default async function AdminRequestsPage() {
         action={
           <Link
             href="/admin/requests/new"
-            className="rounded-lg bg-navy-800 px-3.5 py-2 text-sm font-medium text-white hover:bg-navy-700"
+            className="bg-[var(--pf-ink)] px-3.5 py-2 text-sm font-medium text-[var(--pf-panel-ink)] hover:bg-[var(--pf-ink-2)]"
           >
             Add request
           </Link>
@@ -63,13 +66,13 @@ export default async function AdminRequestsPage() {
                   {request.market ? <Tag>{request.market}</Tag> : null}
                 </div>
 
-                <p className="text-navy-900">{request.request}</p>
-                <p className="mt-2 text-sm text-navy-600">
+                <p className="text-[var(--pf-ink)]">{request.request}</p>
+                <p className="mt-2 text-sm text-[var(--pf-ink-2)]">
                   {request.requesterName}
                   {request.requesterCompany ? ` · ${request.requesterCompany}` : ""}
                 </p>
                 {request.relevantMembers.length > 0 ? (
-                  <p className="mt-1 text-xs text-navy-400">
+                  <p className="mt-1 text-xs text-[var(--pf-ink-3)]">
                     Could contribute: {request.relevantMembers.map((m) => m.name).join(", ")}
                   </p>
                 ) : null}
@@ -77,7 +80,7 @@ export default async function AdminRequestsPage() {
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link
                     href={`/admin/requests/${request.id}`}
-                    className="rounded-lg border border-navy-200 bg-white px-3 py-1.5 text-sm font-medium text-navy-700 hover:bg-navy-50"
+                    className="border border-[var(--pf-rule-strong)] bg-[var(--pf-raised)] px-3 py-1.5 text-sm font-medium text-[var(--pf-ink-2)] hover:bg-[var(--pf-sunken)]"
                   >
                     Edit
                   </Link>

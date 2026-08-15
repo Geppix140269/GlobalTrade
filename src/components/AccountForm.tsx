@@ -26,9 +26,7 @@ export function CreateAccountForm({ members }: { members: LinkableMember[] }) {
 
   return (
     <Card className="p-4 sm:p-5">
-      <h2 className="mb-3 text-sm font-semibold tracking-wide text-navy-400 uppercase">
-        Create a login
-      </h2>
+      <h2 className="gt-label mb-3">Create a login</h2>
       <form action={formAction} className="space-y-4">
         <Field label="Email">
           <input
@@ -93,11 +91,13 @@ export function ResetPasswordForm({ userId }: { userId: string }) {
   );
 
   return (
-    <form action={formAction} className="mt-3 border-t border-navy-100 pt-3">
+    <form action={formAction} className="mt-3 border-t border-[var(--pf-rule)] pt-3">
       <input type="hidden" name="userId" value={userId} />
       <div className="flex flex-wrap items-end gap-2">
         <label className="flex-1">
-          <span className="mb-1 block text-xs font-medium text-navy-400">New password</span>
+          <span className="mb-1 block text-xs font-medium text-[var(--pf-ink-3)]">
+            New password
+          </span>
           <input
             className={inputClass}
             type="text"

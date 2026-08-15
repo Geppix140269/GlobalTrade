@@ -74,7 +74,9 @@ export function OpportunityForm({
       {opportunity.id ? <input type="hidden" name="id" value={opportunity.id} /> : null}
 
       <Card className="space-y-4 p-4 sm:p-5">
-        <h2 className="text-sm font-semibold tracking-wide text-navy-400 uppercase">Requester</h2>
+        <h2 className="text-sm font-semibold tracking-wide text-[var(--pf-ink-3)] uppercase">
+          Requester
+        </h2>
         <Field label="Requester name">
           <input
             className={inputClass}
@@ -111,7 +113,9 @@ export function OpportunityForm({
       </Card>
 
       <Card className="space-y-4 p-4 sm:p-5">
-        <h2 className="text-sm font-semibold tracking-wide text-navy-400 uppercase">The request</h2>
+        <h2 className="text-sm font-semibold tracking-wide text-[var(--pf-ink-3)] uppercase">
+          The request
+        </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Type" hint="e.g. Buyers / Distribution, Trade Services">
             <input className={inputClass} name="type" defaultValue={opportunity.type} />
@@ -150,27 +154,30 @@ export function OpportunityForm({
       </Card>
 
       <Card className="space-y-3 p-4 sm:p-5">
-        <h2 className="text-sm font-semibold tracking-wide text-navy-400 uppercase">
+        <h2 className="text-sm font-semibold tracking-wide text-[var(--pf-ink-3)] uppercase">
           Members who could contribute
         </h2>
-        <p className="text-sm text-navy-400">
+        <p className="text-sm text-[var(--pf-ink-3)]">
           One member may have the supplier, another the buyer, another logistics or finance. Tick
           everyone who could contribute a piece of this opportunity.
         </p>
-        <div className="max-h-72 space-y-1 overflow-y-auto rounded-lg border border-navy-100 p-2">
+        <div className="max-h-72 space-y-1 overflow-y-auto border border-[var(--pf-rule)] p-2">
           {members.map((member) => (
-            <label key={member.id} className="flex items-center gap-2.5 rounded-md p-2 hover:bg-navy-50">
+            <label
+              key={member.id}
+              className="flex items-center gap-2.5 p-2 hover:bg-[var(--pf-sunken)]"
+            >
               <input
                 type="checkbox"
                 name="relevantMemberIds"
                 value={member.id}
                 defaultChecked={opportunity.relevantMemberIds.includes(member.id)}
-                className="size-4 accent-[var(--color-navy-800)]"
+                className="size-4 accent-[var(--pf-ink)]"
               />
-              <span className="text-sm text-navy-800">
+              <span className="text-sm text-[var(--pf-ink)]">
                 {member.name}
                 {member.company ? (
-                  <span className="text-navy-400"> — {member.company}</span>
+                  <span className="text-[var(--pf-ink-3)]"> — {member.company}</span>
                 ) : null}
               </span>
             </label>

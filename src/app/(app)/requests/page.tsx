@@ -57,7 +57,7 @@ export default async function RequestsPage({
           isAdmin(actor) ? (
             <Link
               href="/admin/requests"
-              className="rounded-lg border border-navy-200 bg-white px-3.5 py-2 text-sm font-medium text-navy-700 hover:bg-navy-50"
+              className="border border-[var(--pf-rule-strong)] bg-[var(--pf-raised)] px-3.5 py-2 text-sm font-medium text-[var(--pf-ink-2)] hover:bg-[var(--pf-sunken)]"
             >
               Manage requests
             </Link>
@@ -125,14 +125,14 @@ export default async function RequestsPage({
           <div className="flex gap-2">
             <button
               type="submit"
-              className="flex-1 rounded-lg bg-navy-800 px-4 py-2.5 font-medium text-white hover:bg-navy-700 sm:flex-none"
+              className="flex-1 bg-[var(--pf-ink)] px-4 py-2.5 font-medium text-[var(--pf-panel-ink)] hover:bg-[var(--pf-ink-2)] sm:flex-none"
             >
               Apply
             </button>
             {filtered ? (
               <Link
                 href="/requests"
-                className="flex-1 rounded-lg border border-navy-200 bg-white px-4 py-2.5 text-center font-medium text-navy-700 hover:bg-navy-50 sm:flex-none"
+                className="flex-1 border border-[var(--pf-rule-strong)] bg-[var(--pf-raised)] px-4 py-2.5 text-center font-medium text-[var(--pf-ink-2)] hover:bg-[var(--pf-sunken)] sm:flex-none"
               >
                 Clear
               </Link>
@@ -152,29 +152,29 @@ export default async function RequestsPage({
                   <StatusPill status={request.status} />
                   {request.type ? <Tag tone="gold">{request.type}</Tag> : null}
                   {request.market ? <Tag>{request.market}</Tag> : null}
-                  <span className="ml-auto text-xs text-navy-400">
+                  <span className="ml-auto text-xs text-[var(--pf-ink-3)]">
                     {request.dateAdded.toISOString().slice(0, 10)}
                   </span>
                 </div>
 
-                <p className="text-navy-900">{request.request}</p>
+                <p className="text-[var(--pf-ink)]">{request.request}</p>
 
                 {request.supportNeeded ? (
-                  <p className="mt-2 text-sm text-navy-700">
-                    <span className="font-medium text-navy-400">Support needed: </span>
+                  <p className="mt-2 text-sm text-[var(--pf-ink-2)]">
+                    <span className="font-medium text-[var(--pf-ink-3)]">Support needed: </span>
                     {request.supportNeeded}
                   </p>
                 ) : null}
 
                 {request.notes ? (
-                  <p className="mt-2 text-sm text-navy-400">{request.notes}</p>
+                  <p className="mt-2 text-sm text-[var(--pf-ink-3)]">{request.notes}</p>
                 ) : null}
 
-                <p className="mt-3 text-sm text-navy-600">
+                <p className="mt-3 text-sm text-[var(--pf-ink-2)]">
                   {request.requester ? (
                     <Link
                       href={`/members/${request.requester.id}`}
-                      className="font-medium underline decoration-gold-300 underline-offset-2"
+                      className="font-medium underline decoration-[var(--pf-gold-rule)] underline-offset-2"
                     >
                       {request.requesterName}
                     </Link>
@@ -185,10 +185,8 @@ export default async function RequestsPage({
                 </p>
 
                 {request.relevantMembers.length > 0 ? (
-                  <div className="mt-3 border-t border-navy-100 pt-3">
-                    <h3 className="text-xs font-semibold tracking-wide text-navy-400 uppercase">
-                      Members who could contribute
-                    </h3>
+                  <div className="mt-3 border-t border-[var(--pf-rule)] pt-3">
+                    <h3 className="gt-label">Members who could contribute</h3>
                     <div className="mt-1.5 flex flex-wrap gap-1.5">
                       {request.relevantMembers.map((member) => (
                         <Link key={member.id} href={`/members/${member.id}`}>

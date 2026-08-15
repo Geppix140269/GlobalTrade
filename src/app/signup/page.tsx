@@ -18,27 +18,34 @@ export default async function SignupPage({
   const { code } = await searchParams;
 
   return (
-    <main className="flex min-h-screen flex-col justify-center bg-navy-900 px-4 py-10">
-      <div className="mx-auto w-full max-w-sm">
-        <div className="mb-8 flex flex-col items-center text-center text-white">
-          <span className="text-navy-100">
-            <Logo size={56} />
+    <main className="flex min-h-screen flex-col justify-center bg-[var(--pf-inverse-ground)] px-[var(--pt-gutter)] py-[var(--pt-space-7)]">
+      <div className="mx-auto w-full max-w-[26rem]">
+        <div className="mb-[var(--pt-space-6)] flex flex-col items-center text-center">
+          <span className="text-[var(--pf-inverse)]">
+            <Logo size={52} />
           </span>
-          <h1 className="mt-4 text-xl font-semibold tracking-tight">Global Trade Network</h1>
-          <p className="mt-1 text-sm text-navy-200">Community Directory</p>
+          <h1 className="gt-title mt-[var(--pt-space-4)] text-[var(--pf-inverse)]">
+            Global Trade Network
+          </h1>
+          <p className="mt-2 font-mono text-(length:--pt-mono-band) tracking-[var(--pt-ls-band)] text-[var(--pf-inverse-mute)] uppercase">
+            Community Directory
+          </p>
         </div>
 
-        <div className="rounded-xl bg-white p-6 shadow-lg">
-          <h2 className="mb-1 text-lg font-semibold text-navy-900">Join the directory</h2>
-          <p className="mb-4 text-sm text-navy-400">
+        <div className="bg-[var(--pf-surface)] p-[var(--pt-space-5)]">
+          <h2 className="gt-heading-sub">Join the directory</h2>
+          <p className="gt-prose mt-1 mb-[var(--pt-space-4)]">
             You need the invite code shared in the Community.
           </p>
           <SignupForm defaultCode={code ?? ""} />
         </div>
 
-        <p className="mt-6 text-center text-sm text-navy-200">
+        <p className="mt-[var(--pt-space-5)] text-center font-sans text-(length:--pt-caption) text-[var(--pf-inverse-mute)]">
           Already have an account?{" "}
-          <Link href="/login" className="font-medium text-white underline underline-offset-2">
+          <Link
+            href="/login"
+            className="text-[var(--pf-inverse)] underline decoration-[var(--pf-gold-rule)] underline-offset-4"
+          >
             Sign in
           </Link>
         </p>

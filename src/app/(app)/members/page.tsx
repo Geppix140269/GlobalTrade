@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/session";
 import { filterOptions, findMembers } from "@/lib/members";
-import { Card, EmptyState, PageHeader, Tag, inputClass } from "@/components/ui";
+import { EmptyState, PageHeader, Tag, inputClass } from "@/components/ui";
 
 export const metadata = { title: "Members — Global Trade Network" };
 
@@ -35,12 +35,20 @@ export default async function MembersPage({
   return (
     <>
       <PageHeader
+        label="The Community"
         title="Members"
-        subtitle={`${members.length} ${members.length === 1 ? "member" : "members"} in the Community`}
+        subtitle="Who is in the network, what they do and which markets they cover."
+        action={
+          <p className="gt-meta">
+            {members.length} {members.length === 1 ? "member" : "members"}
+          </p>
+        }
       />
 
-      <Card className="mb-5 p-3 sm:p-4">
-        <form method="get" className="space-y-3">
+      {/* The filter sits on the derived ground: it is a thing the directory
+          works out, not a thing a member stated. */}
+      <form method="get" className="gt-derived mb-[var(--pt-space-5)] p-[var(--pt-space-4)]">
+        <div className="space-y-3">
           <input
             className={inputClass}
             type="search"
@@ -95,55 +103,54 @@ export default async function MembersPage({
           </div>
 
           <div className="flex gap-2">
-            <button
-              type="submit"
-              className="flex-1 rounded-lg bg-navy-800 px-4 py-2.5 font-medium text-white hover:bg-navy-700 sm:flex-none"
-            >
+            <button type="submit" className="gt-act gt-act--primary flex-1 sm:flex-none">
               Apply
             </button>
             {filtered ? (
-              <Link
-                href="/members"
-                className="flex-1 rounded-lg border border-navy-200 bg-white px-4 py-2.5 text-center font-medium text-navy-700 hover:bg-navy-50 sm:flex-none"
-              >
+              <Link href="/members" className="gt-act flex-1 no-underline sm:flex-none">
                 Clear
               </Link>
             ) : null}
           </div>
-        </form>
-      </Card>
+        </div>
+      </form>
 
       {members.length === 0 ? (
         <EmptyState>No members match these filters.</EmptyState>
       ) : (
-        <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        /* The register: a strong rule opens it, lighter rules divide the rows. */
+        <ul className="border-t border-[var(--pf-rule-strong)]">
           {members.map((member) => (
-            <li key={member.id}>
-              <Link href={`/members/${member.id}`} className="block h-full">
-                <Card className="h-full p-4 transition-colors hover:border-gold-300">
-                  <h2 className="font-semibold text-navy-900">{member.name}</h2>
-                  <p className="text-sm text-navy-600">
-                    {[member.roleTitle, member.company].filter(Boolean).join(" · ")}
-                  </p>
+            <li key={member.id} className="border-b border-[var(--pf-rule)]">
+              <Link
+                href={`/members/${member.id}`}
+                className="group block px-1 py-[var(--pt-space-5)] text-[var(--pf-ink)] no-underline"
+              >
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h2 className="gt-row-title text-[var(--pf-ink)] group-hover:text-[var(--pf-gold-ink)]">
+                    {member.name}
+                  </h2>
                   {member.baseCountry ? (
-                    <p className="mt-0.5 text-xs text-navy-400">Based in {member.baseCountry}</p>
+                    <span className="gt-meta">{member.baseCountry}</span>
                   ) : null}
+                </div>
 
-                  {member.whatTheyDo ? (
-                    <p className="mt-2 line-clamp-3 text-sm text-navy-700">{member.whatTheyDo}</p>
-                  ) : null}
+                <p className="mt-1 font-sans text-(length:--pt-body) text-[var(--pf-ink-2)]">
+                  {[member.roleTitle, member.company].filter(Boolean).join(" · ")}
+                </p>
 
-                  {member.markets.length > 0 ? (
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {member.markets.slice(0, 4).map((market) => (
-                        <Tag key={market}>{market}</Tag>
-                      ))}
-                      {member.markets.length > 4 ? (
-                        <Tag>+{member.markets.length - 4}</Tag>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </Card>
+                {member.whatTheyDo ? (
+                  <p className="gt-prose mt-2 line-clamp-2">{member.whatTheyDo}</p>
+                ) : null}
+
+                {member.markets.length > 0 ? (
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {member.markets.slice(0, 5).map((market) => (
+                      <Tag key={market}>{market}</Tag>
+                    ))}
+                    {member.markets.length > 5 ? <Tag>+{member.markets.length - 5}</Tag> : null}
+                  </div>
+                ) : null}
               </Link>
             </li>
           ))}

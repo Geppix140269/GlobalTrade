@@ -50,7 +50,11 @@ export async function createInvite(
     if (member.user) return { ok: false, message: "That profile already has an account." };
   }
 
-  const maxUses = memberId ? 1 : parsed.data.maxUses ? Number.parseInt(parsed.data.maxUses, 10) : null;
+  const maxUses = memberId
+    ? 1
+    : parsed.data.maxUses
+      ? Number.parseInt(parsed.data.maxUses, 10)
+      : null;
   if (maxUses !== null && (!Number.isFinite(maxUses) || maxUses < 1)) {
     return { ok: false, message: "Maximum uses must be a whole number of 1 or more." };
   }

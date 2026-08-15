@@ -1,0 +1,395 @@
+/* =====================================================================
+   GLOBAL TRADE NETWORK — design tokens
+   =====================================================================
+
+   PROVENANCE
+   Repository : Geppix140269/ponte-trade
+   Source     : styles/tokens.css
+   Status     : ADOPTED, unmodified except this header
+
+   The colour law, the type ladder, the spacing scale, the radii law and
+   the motion values are carried across verbatim so the two products stay
+   one visual system. Changing a value here rather than upstream is drift.
+
+   The directory carries none of Ponte's naming or marks — only the design
+   language. A hard-coded hex anywhere else in this repository is a defect.
+   ===================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* ---- ink -------------------------------------------------------
+     Press ink is brand. The three tones below it are interface text,
+     transcribed from the approved vNext design. */
+  --pf-ink: #0e0f0c;
+  --pf-ink-2: #3a3733;
+  --pf-ink-3: #5b5750;
+  --pf-mute: #827b69;
+
+  /* ---- warm paper surfaces ---------------------------------------
+     `--pf-ground` is the page itself. `--pf-surface` and `--pf-raised`
+     are paper laid on it — the STATED ground of the Choice System.
+     `--pf-sunken` is the DERIVED ground and is never used for
+     decoration: a block on it is a thing Ponte worked out.
+
+     `--pf-ground` and `--pf-sunken` held the SAME value, which collapsed
+     the Choice System's one non-negotiable visual law. If the page and the
+     derived ground are the same colour, a figure Ponte worked out is
+     indistinguishable from a fact a professional stated — and every
+     register in My Trade Room was painted on the derived ground.
+
+     OWNER DECISION, 10 August 2026: the light ground is WHITE.
+
+     DESIGN.md §2 and Brand Identity v1 describe warm paper — "heritage
+     cream, never blue-grey or glass". The owner reviewed the deployed
+     product on the cream ground and chose white, with the warm cream
+     retained only where it still does a job: the sunken ground below.
+
+     This is a departure from the frozen standard, taken deliberately and by
+     the person entitled to take it. It is recorded here rather than absorbed
+     silently, because the next person to read the standard will otherwise
+     believe this is drift. The ink ramp, the gold pair and the mark are
+     untouched — the brand's identity is unchanged; its paper is not. */
+  --pf-ground: #efebe1;
+  --pf-surface: #ffffff;
+  --pf-raised: #ffffff;
+  --pf-sunken: #e4dfd2;
+
+  /* The panel: the field that is deliberately the OPPOSITE of the ground.
+     On paper it is ink; on ink it is paper. It always contrasts, which is
+     why it is its own token and not the ink colour reused. */
+  --pf-panel: #0e0f0c;
+  --pf-panel-ink: #f2efe6;
+  --pf-panel-mute: #a7a296;
+  --pf-panel-rule: rgba(242, 239, 232, 0.16);
+
+  /* ---- the inverse ground ----------------------------------------
+     Brand standard §2: the pair lifts at zero hue drift. Used by the
+     masthead, the Deal Room ribbon and any ink-ground chrome. */
+  --pf-inverse: #f2eee2;
+  --pf-inverse-mute: #a7a296;
+  --pf-inverse-ground: #0e0f0c;
+
+  /* ---- rule weights ----------------------------------------------
+     `--pf-rule` divides INSIDE a module. `--pf-rule-strong` is the
+     boundary OF a module or control. They are not interchangeable. */
+  --pf-rule: rgba(14, 15, 12, 0.2);
+  --pf-rule-strong: rgba(14, 15, 12, 0.48);
+
+  /* ---- gold: four tokens, four jobs -------------------------------
+     `--pf-gold` is heritage gold, the keystone and the brand fill.
+     `--pf-gold-raised` is the same value lifted for the inverse
+     ground. `--pf-gold-ink` is gold AS TEXT. `--pf-gold-rule` is gold
+     as a structural line. A 1px rule drawn in --pf-gold is a defect.
+
+     Brand standard §2: gold means nothing. It is never verification,
+     approval, review or success, and nothing in the product may make
+     it one. */
+  --pf-gold: #c9973a;
+  --pf-gold-raised: #d9ac55;
+  --pf-gold-ink: #7e5914;
+  --pf-gold-rule: #a47215;
+  --pf-on-gold: #0e0f0c;
+
+  /* ---- state ------------------------------------------------------ */
+  --pf-positive: #0e5f35;
+  --pf-review: #455966;
+  --pf-danger: #a2381f;
+  --pf-declared: #656055;
+
+  /* ---- interaction -------------------------------------------------
+     `--pf-interaction` is act and edit — links and controls. The focus
+     ring is deliberately NOT this colour: the vNext handoff reserves
+     interaction blue for affordances and requires the focus indicator
+     to be its own treatment on both grounds. */
+  --pf-interaction: #17548c;
+  --pf-interaction-hover: #0f3d6b;
+  --pf-focus: #1e5fa8;
+  --pf-select: #dce8f4;
+  --pf-focus-ring: 0 0 0 2px var(--pf-surface), 0 0 0 4px var(--pf-focus); /* retired — see .pf-focus rule in base.css */
+
+  /* ---- ground swatches --------------------------------------------
+     Fixed on both grounds on purpose: these paint the little squares in
+     the ground toggle, and a swatch of paper must look like paper while
+     you are standing on ink. They are a PICTURE of a ground, not a use
+     of one, so they do not flip with the theme. */
+  --pf-swatch-paper: #ffffff;
+  --pf-swatch-ink: #0e0f0c;
+
+  /* ---- radii ------------------------------------------------------
+     Build spec §8.9: the product has NO shadows, and the only radii are
+     2px on the focus indicator and 50% on a dot. Every other rounding is
+     a build failure.
+
+     The scale is kept and zeroed rather than deleted, so the twenty-nine
+     rules that read it conform in one place instead of twenty-nine — and
+     so the day a radius is authorised again it is authorised once. */
+  --pf-r-sm: 0;
+  --pf-r-md: 0;
+  --pf-r-lg: 0;
+  --pf-r-pill: 50%;
+  --pf-r-focus: 2px;
+
+  /* ---- line law --------------------------------------------------- */
+  --pf-stroke: 1.75;
+  --pf-dash-unconfirmed: 2 2.6;
+  --pf-dash-unavailable: 1 3;
+  --pf-dash-reserved: 3 5;
+  --pf-opacity-unavailable: 0.45;
+
+  /* ---- motion ----------------------------------------------------- */
+  --pf-dur-micro: 120ms;
+  --pf-dur-enter: 220ms;
+  --pf-dur-deliberate: 420ms;
+  --pf-dur-crossing: 900ms;
+  --pf-ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --pf-ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ---- type families ----------------------------------------------
+     Serif for principal editorial headings and major record titles.
+     Sans for interface copy, controls and operational reading.
+     Mono for labels, references, classifications and metadata.
+     Page-level substitutions are prohibited. */
+  /* Vision §31 names the three faces. They are vendored in `app/fonts/` and
+     declared with `next/font/local` in `app/layout.tsx`, which sets these
+     variables — nothing is fetched from a font CDN at build time or at run
+     time. The system stacks behind them are a fallback for the moment before
+     a face arrives, and for any glyph outside the latin subset — not the
+     plan, which is what they had quietly become. */
+  --f-serif: var(--font-playfair), "Iowan Old Style", "Palatino Linotype",
+    Palatino, Georgia, "Times New Roman", serif;
+  --f-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --f-mono: var(--font-mono), ui-monospace, "SFMono-Regular", "Cascadia Mono",
+    Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* ---- type scale -------------------------------------------------
+     Transcribed from My Trade Room vNext (APPROVED), which carries 24
+     distinct sizes from 8.5px to 48px. This is that ladder, named by the
+     job each grade does.
+
+     WHY IT IS A LADDER AND NOT A RANGE
+
+     Measured before this change: 113 of 143 declarations sat between 10
+     and 13.5px. Four fifths of the product inside 3.5 pixels. The large
+     grades existed and were used five times in the whole codebase. The
+     owner's words for the result: "è un MONOBLOCCO IMPOSSIBILE DA
+     SEGUIRE" — and he was describing arithmetic, not taste.
+
+     The single line that carries the most weight below is
+     `--pt-heading: 25px`, up from 19. `.pt-heading` is the h2 on every
+     register in the product. Nineteen pixels of semibold sans one step
+     above a 15.5px semibold sans row title IS the monoblock. Twenty-five
+     pixels of serif above a 19.5px sans row is the design.
+
+     Four names change value only; the rest are new. Nothing is renamed —
+     172 existing references move for free. */
+
+  /* -- serif titles -------------------------------------------------- */
+  --pt-display: 48px;          /* the page title: the greeting, the hero */
+  --pt-title: 40px;            /* the title of a room or a record */
+  --pt-heading: 25px;          /* THE REGISTER HEADING. The spine of the ledger. */
+  --pt-figure: 22px;           /* a headline value, a serif position name, the mono row index */
+  --pt-heading-minor: 20px;    /* a serif h3 that still opens a register */
+
+  /* -- sans reading -------------------------------------------------- */
+  --pt-row-title: 19.5px;      /* THE ROW TITLE in a principal register */
+  --pt-lead: 19.5px;           /* the standfirst under a page title */
+  --pt-sub-title: 17px;        /* a door title, a next-action title */
+  --pt-intel-title: 16.5px;    /* the new-intelligence title */
+  --pt-sentence: 16px;         /* the Sentence filter and its pills */
+  --pt-heading-sub: 15.5px;    /* a SUB-register heading — sans, deliberately not serif */
+  --pt-body: 15px;             /* running body, a secondary row title */
+  --pt-prose: 14.5px;          /* a rationale, a nav label, empty-state prose */
+  --pt-action: 14px;           /* the label inside a button */
+  --pt-small: 13.5px;          /* a register subtitle, a counterparty line */
+  --pt-meta: 13px;             /* a field label in a ruled key/value row */
+  --pt-caption: 12.5px;        /* an action note, a refusal, a footnote */
+  --pt-fine: 12px;             /* THE PROSE FLOOR. Nothing sans goes below this. */
+
+  /* -- mono: labels, references, values -------------------------------
+     Below 12px the design sets mono only, uppercase, tracked. Nothing
+     under 12px is ever a sentence somebody has to read. */
+  --pt-mono-value: 13.5px;     /* the value in a positions row, tabular */
+  --pt-mono-fact: 13px;        /* a fact value, a door value, tabular */
+  --pt-mono-caption: 11px;     /* a reference tier: an owner, a match count */
+  --pt-mono-band: 10.5px;      /* a band eyebrow over a whole section */
+  --pt-mono-label: 10px;       /* a register count, a row reference */
+  --pt-mono-affordance: 9.5px; /* a column label, a family label, "Enter the room →" */
+  --pt-mono-chip: 9px;         /* THE STATE CHIP, and only chip-weight things */
+  /* THE FIELD LABEL, at its real weight — owner decision, 11 August 2026:
+     8.5px on the desktop, and the phone keeps its own floor.
+
+     My first attempt at this dropped `--pt-mono-label` itself to 8.5 and
+     `--pt-mono-caption` to 9, which flattened three distinct jobs into
+     one and was cruder than the design. A count, a reference and a field
+     label are not the same thing and the design gives them 10, 11 and
+     8.5. Only the last is an eyebrow over a value; the other two are read
+     on their own.
+
+     8.5 is right for the eyebrow because a register row carries three or
+     four of them — TRANSACTION, STAGE, COUNTERPARTY — against one title.
+     At 10px they outweighed what they labelled by sheer count. They are
+     signposts, and a signpost that competes with the road is a worse
+     signpost. */
+  --pt-mono-micro: 8.5px;      /* THE FIELD LABEL as an eyebrow, a value kind */
+
+  /* -- weight: three values, and no others --------------------------- */
+  --pt-w-book: 400;
+  --pt-w-medium: 500;
+  --pt-w-strong: 600;
+
+  /* -- line height --------------------------------------------------- */
+  --pt-lh-display: 1.04;
+  --pt-lh-room: 1.08;
+  --pt-lh-figure: 1.2;
+  --pt-lh-title: 1.32;
+  --pt-lh-prose: 1.5;
+  --pt-lh-read: 1.6;           /* the only prose read at length */
+  --pt-lh-flat: 1;
+
+  /* -- tracking: negative on serif titles, wide on uppercase mono ----- */
+  --pt-ls-display: -0.024em;
+  --pt-ls-room: -0.02em;
+  --pt-ls-title: -0.012em;
+  --pt-ls-band: 0.22em;
+  --pt-ls-stage: 0.18em;
+  --pt-ls-micro: 0.16em;
+  --pt-ls-count: 0.14em;
+  --pt-ls-chip: 0.13em;
+
+  /* ---- spacing ---------------------------------------------------- */
+  --pt-space-1: 4px;
+  --pt-space-2: 8px;
+  --pt-space-3: 12px;
+  --pt-space-4: 16px;
+  --pt-space-5: 24px;
+  --pt-space-6: 34px;
+  --pt-space-7: 48px;
+  --pt-space-8: 72px;
+
+  /* ---- measure ---------------------------------------------------- */
+  --pt-measure-prose: 62ch;
+  --pt-measure-page: 1160px;
+  --pt-gutter: clamp(18px, 4vw, 44px);
+}
+
+/* =====================================================================
+   THE DARK GROUND
+   =====================================================================
+
+   Not a second design. The same design on the other ground — which is why
+   every value below is transcribed from the approved dark files rather than
+   computed from the light ones by an algorithm.
+
+   Source: `Trade Room Concepts Dark.dc.html` and `Legacy Inventory
+   Dark.dc.html`, both in the approved My Trade Room package. Both handoffs
+   list the dark ground as a known gap whose "token mapping is established
+   in the two dark inventory/concept files and is mechanical to apply."
+   This is that application.
+
+   Two things worth noticing, because they are why this is Ponte's dark and
+   not a generic inversion:
+
+   1. The gold does NOT invert. On the dark ground it LIFTS, to `#e7c173`
+      and the brand's own `#d9ac55` — which is Brand Identity v1 §2's
+      "Gold, raised" exactly. The brand already specified its dark gold; the
+      dark files use it.
+
+   2. The paper does not become grey. `#f2eee2` is the brand's inverse ink
+      and stays warm, so ink-on-paper becomes paper-on-ink without the hue
+      drift that makes most dark modes feel like a different product.
+
+   The ladders are inverted in ORDER but not in character: four ink tones
+   become four paper tones, and the rule weights keep their two jobs.
+   ===================================================================== */
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Ink becomes paper. The ladder runs the other way and keeps its steps. */
+  --pf-ink: #f2efe6;
+  --pf-ink-2: #cdc8bc;
+  --pf-ink-3: #a7a296;
+  --pf-mute: #a7a296;
+
+  --pf-ground: #0e0f0c;
+  --pf-surface: #1f211b;
+  --pf-raised: #1f211b;
+  --pf-sunken: #080906;
+
+  /* The panel inverts with the ground: on ink it is paper. */
+  --pf-panel: #f2efe6;
+  --pf-panel-ink: #0e0f0c;
+  --pf-panel-mute: #5b5750;
+  --pf-panel-rule: rgba(14, 15, 12, 0.2);
+
+  /* On a dark page the ink-ground chrome is the light one. */
+  --pf-inverse: #0e0f0c;
+  --pf-inverse-mute: #5b5750;
+  --pf-inverse-ground: #f2efe6;
+
+  --pf-rule: rgba(242, 239, 232, 0.16);
+  --pf-rule-strong: rgba(242, 239, 232, 0.4);
+
+  /* Gold lifts, and the fill holds its brand value on both grounds — only
+     the text and rule tints move. It is still never a status. */
+  --pf-gold: #c9973a;
+  --pf-gold-raised: #d9ac55;
+  --pf-gold-ink: #c79a4c;
+  --pf-gold-rule: #c79a4c;
+  --pf-on-gold: #0e0f0c;
+
+  --pf-positive: #4fb07a;
+  --pf-review: #9db4c0;
+  --pf-danger: #e0674c;
+  --pf-declared: #a7a296;
+
+  --pf-interaction: #8ab9e4;
+  --pf-interaction-hover: #a9cbee;
+  --pf-focus: #6fa8e0;
+  --pf-select: #16202b;
+  --pf-focus-ring: 0 0 0 2px var(--pf-surface), 0 0 0 4px var(--pf-focus); /* retired — see .pf-focus rule in base.css */}
+
+/* THE MOBILE LADDER.
+   Not the desktop scaled down: the approved design draws its own 390
+   frame and sets its own values, and those are transcribed rather than
+   computed. §33 — mobile is recomposed, not squeezed. */
+@media (max-width: 899px) {
+  :root {
+    --pt-display: 28px;
+    --pt-title: 26px;
+    --pt-heading: 23px;
+    --pt-figure: 19px;
+    --pt-heading-minor: 18px;
+    --pt-row-title: 16px;
+    --pt-lead: 14.5px;
+    --pt-sub-title: 16px;
+    --pt-intel-title: 15px;
+    --pt-sentence: 13.5px;
+    --pt-heading-sub: 14px;
+    --pt-prose: 13.5px;
+  }
+}
+
+/* Structural mono never drops below 11px on a phone. A two-letter country
+   code at 8px in daylight is not rescued by any contrast ratio.
+
+   THE ONE PLACE THE APPROVED DESIGN AND THIS PRODUCT DISAGREE, resolved
+   here in favour of the accessibility rule and stated rather than hidden:
+   the design goes to 8px, and once to 7.5px, on a phone. It is a drawing
+   of a screen; this is a screen somebody reads outdoors, on the move,
+   with a consignment number they have to check. Owner decision, 11 August
+   2026: 8.5 on the desktop, the floor on the phone.
+
+   Must stay AFTER the ladder above, so it wins. */
+@media (max-width: 859px) {
+  :root {
+    --pt-mono-band: 11px;
+    --pt-mono-label: 11px;
+    --pt-mono-affordance: 11px;
+    --pt-mono-chip: 11px;
+    --pt-mono-micro: 11px;
+    --pt-mono-caption: 11px;
+  }
+}

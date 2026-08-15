@@ -54,10 +54,12 @@ export default async function AdminPage() {
         {sections.map((section) => (
           <li key={section.href}>
             <Link href={section.href} className="block h-full">
-              <Card className="h-full p-4 transition-colors hover:border-gold-300">
-                <h2 className="font-semibold text-navy-900">{section.title}</h2>
-                <p className="mt-0.5 text-sm font-medium text-gold-600">{section.detail}</p>
-                <p className="mt-2 text-sm text-navy-400">{section.description}</p>
+              <Card className="h-full p-4 transition-colors hover:border-[var(--pf-gold-rule)]">
+                <h2 className="font-semibold text-[var(--pf-ink)]">{section.title}</h2>
+                <p className="mt-0.5 text-sm font-medium text-[var(--pf-gold-ink)]">
+                  {section.detail}
+                </p>
+                <p className="mt-2 text-sm text-[var(--pf-ink-3)]">{section.description}</p>
               </Card>
             </Link>
           </li>
