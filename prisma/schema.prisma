@@ -85,6 +85,9 @@ model InviteCode {
 /// A Community member profile. Members maintain their own; admin may correct any.
 model Member {
   id            String       @id @default(cuid())
+  /// Readable identifier for the shareable link at /m/<slug>. Derived from the
+  /// name, kept stable once issued so a link already sent keeps working.
+  slug          String?      @unique
   name          String
   company       String       @default("")
   roleTitle     String       @default("")

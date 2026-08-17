@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/session";
 import { canEditMember, isAdmin } from "@/lib/authz";
 import { Card, DetailBlock, PageHeader, StatusPill, Tag } from "@/components/ui";
+import { shareUrl } from "@/lib/site";
 
 export default async function MemberDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const actor = await requireUser();
@@ -147,6 +148,19 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
               ))}
             </ul>
           </Card>
+        ) : null}
+
+        {member.slug ? (
+          <div className="gt-derived p-[var(--pt-space-4)]">
+            <p className="gt-label">Shareable link</p>
+            <p className="mt-1.5 font-mono text-(length:--pt-mono-caption) break-all text-[var(--pf-ink-2)] select-all">
+              {shareUrl(member.slug)}
+            </p>
+            <p className="gt-prose mt-2">
+              Safe to paste into a chat. It previews with {member.name.split(" ")[0]}&rsquo;s name,
+              role, company and country — everything else needs a login.
+            </p>
+          </div>
         ) : null}
 
         <p className="px-1 text-xs text-[var(--pf-ink-3)]">

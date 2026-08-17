@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 /*
@@ -31,9 +32,20 @@ const mono = localFont({
 });
 
 export const metadata: Metadata = {
+  // Absolute URLs are required: a link preview is fetched by somebody else's
+  // server, which cannot resolve a relative path.
+  metadataBase: new URL(siteUrl()),
   title: "Global Trade Network — Community Directory",
   description: "Private directory for the Global Trade Network Community.",
-  // The directory is private and must never be indexed.
+  openGraph: {
+    type: "website",
+    siteName: "Global Trade Network",
+    title: "Global Trade Network — Community Directory",
+    description: "Private directory for the Global Trade Network Community.",
+  },
+  twitter: { card: "summary_large_image" },
+  // Previewable, never indexed: the crawler that builds a chat card reads the
+  // tags directly, so the directory stays out of search results either way.
   robots: { index: false, follow: false, nocache: true },
 };
 
