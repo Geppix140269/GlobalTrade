@@ -12,11 +12,13 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Private directory for the Global Trade Network Community.",
     start_url: "/members",
     display: "standalone",
-    background_color: "#0d1a31",
-    theme_color: "#0d1a31",
+    background_color: "#0F0F0E",
+    theme_color: "#0F0F0E",
     icons: [
-      { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
-      { src: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { src: "/brand/ponte-app-icon-512.svg", sizes: "any", type: "image/svg+xml" },
+      { src: "/brand/ponte-icon-192.png", sizes: "192x192", type: "image/png" },
+      { src: "/brand/ponte-icon-512.png", sizes: "512x512", type: "image/png" },
+      { src: "/brand/ponte-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 }

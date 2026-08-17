@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
-import { Logo } from "@/components/Logo";
+import { BrandMark } from "@/components/BrandMark";
 import { LoginForm } from "./LoginForm";
 
 export const metadata = { title: "Sign in — Global Trade Network" };
@@ -17,9 +17,7 @@ export default async function LoginPage() {
     <main className="flex min-h-screen flex-col justify-center bg-[var(--pf-inverse-ground)] px-[var(--pt-gutter)] py-[var(--pt-space-7)]">
       <div className="mx-auto w-full max-w-[26rem]">
         <div className="mb-[var(--pt-space-6)] flex flex-col items-center text-center">
-          <span className="text-[var(--pf-inverse)]">
-            <Logo size={52} />
-          </span>
+          <BrandMark size={52} ground="ink" />
           <h1 className="gt-title mt-[var(--pt-space-4)] text-[var(--pf-inverse)]">
             Global Trade Network
           </h1>

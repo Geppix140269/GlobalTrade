@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "node scripts/check-brand.mjs && prisma generate && next build",
     "start": "next start",
     "lint": "eslint src tests scripts prisma",
     "typecheck": "tsc --noEmit",
@@ -14,7 +14,8 @@
     "db:studio": "prisma studio",
     "db:export": "tsx scripts/export.ts",
     "create:admin": "tsx scripts/create-admin.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "check:brand": "node scripts/check-brand.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

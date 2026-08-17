@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/session";
 import { isAdmin } from "@/lib/authz";
-import { Logo } from "@/components/Logo";
+import { BrandMark } from "@/components/BrandMark";
 import { NavLink } from "@/components/NavLink";
 import { logoutAction } from "@/actions/auth-actions";
 
@@ -22,9 +22,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <header className="sticky top-0 z-20 bg-[var(--pf-inverse-ground)] text-[var(--pf-inverse)]">
         <div className="mx-auto flex w-full max-w-[var(--pt-measure-page)] items-center justify-between gap-3 px-[var(--pt-gutter)] py-3.5">
           <Link href="/members" className="flex items-center gap-3 no-underline">
-            <span className="text-[var(--pf-inverse)]">
-              <Logo size={30} />
-            </span>
+            <BrandMark size={30} ground="ink" />
             <span className="leading-tight">
               <span className="block font-serif text-[17px] font-medium tracking-[-0.012em] text-[var(--pf-inverse)]">
                 Global Trade Network
