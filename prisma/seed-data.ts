@@ -7,6 +7,14 @@
  */
 import type { Prisma } from "@prisma/client";
 
+/**
+ * NOTE ON SCOPE: this file bootstraps an empty directory. Once someone claims
+ * their profile they maintain it themselves, and re-seeding would fight them —
+ * `db:seed` matches on an exact name, so a member who capitalises their own
+ * name differently gets a duplicate rather than an update. Add people here only
+ * before they have an account; afterwards use Admin -> Members.
+ */
+
 export interface SeedRequest {
   requesterName: string;
   requesterCompany: string;
@@ -25,12 +33,7 @@ export const members: Prisma.MemberCreateInput[] = [
     markets: ["USA", "UAE", "Switzerland", "Africa", "Worldwide"],
     whatTheyDo:
       "Software as a Service for financial institutions to assess the creditworthiness of small and medium businesses using alternative data sources.",
-    expertise: [
-      "Fintech",
-      "SME creditworthiness",
-      "Alternative data",
-      "Financial institutions",
-    ],
+    expertise: ["Fintech", "SME creditworthiness", "Alternative data", "Financial institutions"],
     currentFocus:
       "Evolving the platform based on customer and market feedback, and planning demonstrations in Africa.",
     lookingFor:
@@ -79,8 +82,7 @@ export const members: Prisma.MemberCreateInput[] = [
       "Market selection",
       "Manufacturer representation",
     ],
-    currentFocus:
-      "Starting a large project to build new international trade infrastructure.",
+    currentFocus: "Starting a large project to build new international trade infrastructure.",
     lookingFor:
       "Members with an interest in international trade who could take part in the project. The intention is to prepare the project for the Community and gather feedback once it is ready.",
     canOffer:
@@ -129,7 +131,6 @@ export const members: Prisma.MemberCreateInput[] = [
     status: "ACTIVE",
   },
 ];
-
 
 export const requests: SeedRequest[] = [
   {
