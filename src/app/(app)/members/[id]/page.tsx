@@ -10,8 +10,10 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
   const actor = await requireUser();
   const { id } = await params;
 
-  const member = await prisma.member.findUnique({
-    where: { id },
+  // Accepts either the id or the readable slug, so the share link redirects
+  // straight here for a member who is already signed in.
+  const member = await prisma.member.findFirst({
+    where: { OR: [{ id }, { slug: id }] },
     include: {
       requests: { where: { status: { not: "CLOSED" } }, orderBy: { dateAdded: "desc" } },
       relevantFor: { where: { status: { not: "CLOSED" } }, orderBy: { dateAdded: "desc" } },

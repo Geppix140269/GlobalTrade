@@ -1,8 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { getCurrentUser } from "@/lib/session";
 import { siteUrl } from "@/lib/site";
 import { BrandMark } from "@/components/BrandMark";
 
@@ -18,9 +17,19 @@ import { BrandMark } from "@/components/BrandMark";
  * telephone, markets, expertise, what the member is looking for and every
  * request stay behind the login, on /members/[id].
  *
- * A signed-in member never sees this page; they are sent straight through to
- * the full profile.
+ * A signed-in member never sees this page: `src/middleware.ts` notices the
+ * session cookie and sends them to the full profile instead.
+ *
+ * CACHED ON PURPOSE. The page holds no per-visitor state, so it is rendered
+ * once and revalidated. A link-preview crawler gets an answer in milliseconds
+ * from the edge without waking the database — which matters because the
+ * database sleeps when idle, and a crawler that waits does not draw a card.
+ * Profile edits call revalidatePath("/m/<slug>"), so a change shows up at once
+ * rather than at the end of the window.
  */
+
+/** Long, because every edit revalidates explicitly. */
+export const revalidate = 3600;
 
 interface Params {
   params: Promise<{ slug: string }>;
@@ -83,9 +92,6 @@ export default async function ShareCardPage({ params }: Params) {
   const { slug } = await params;
   const member = await findMember(slug);
   if (!member) notFound();
-
-  // Members already inside go straight to the real thing.
-  if (await getCurrentUser()) redirect(`/members/${member.id}`);
 
   const line = [member.roleTitle, member.company].filter(Boolean).join(" · ");
 

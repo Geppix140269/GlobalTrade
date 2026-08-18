@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { uniqueSlug } from "@/lib/slug";
 import { getCurrentUser } from "@/lib/session";
 import { assertCanEditMember, isAdmin, permittedMemberPatch } from "@/lib/authz";
 import {
@@ -29,7 +30,16 @@ async function applyMemberProfileUpdate(
   memberId: string,
   patch: Record<string, unknown>,
 ): Promise<void> {
-  await prisma.member.update({ where: { id: memberId }, data: patch });
+  const saved = await prisma.member.update({
+    where: { id: memberId },
+    data: patch,
+    select: { slug: true },
+  });
+
+  // The public share card is cached so a link-preview crawler never waits on
+  // the database. Refresh it here, or an edit would not reach a preview until
+  // the revalidation window closed.
+  if (saved.slug) revalidatePath(`/m/${saved.slug}`);
 }
 
 /** Member self-service. The member may only ever touch their linked profile. */
@@ -106,7 +116,15 @@ export async function createMember(
   });
   if (!parsed.success) return { ok: false, message: firstError(parsed.error) };
 
-  const created = await prisma.member.create({ data: parsed.data });
+  const taken = new Set(
+    (await prisma.member.findMany({ select: { slug: true } }))
+      .map((m) => m.slug)
+      .filter((slug): slug is string => slug !== null),
+  );
+
+  const created = await prisma.member.create({
+    data: { ...parsed.data, slug: uniqueSlug(parsed.data.name, taken) },
+  });
   revalidatePath("/admin/members");
   revalidatePath("/members");
   return { ok: true, message: `${created.name} added to the directory.` };
@@ -124,7 +142,13 @@ export async function setMemberStatus(
   const parsed = memberStatusSchema.safeParse(String(formData.get("status") ?? ""));
   if (!memberId || !parsed.success) return { ok: false, message: "Invalid request." };
 
-  await prisma.member.update({ where: { id: memberId }, data: { status: parsed.data } });
+  const saved = await prisma.member.update({
+    where: { id: memberId },
+    data: { status: parsed.data },
+    select: { slug: true },
+  });
+  // Deactivating hides the public card; the cached copy has to go with it.
+  if (saved.slug) revalidatePath(`/m/${saved.slug}`);
   revalidatePath("/admin/members");
   revalidatePath("/members");
   revalidatePath(`/members/${memberId}`);
