@@ -1,4 +1,4 @@
-# Global Trade Network — Community Directory
+# Global Trade Network. Community Directory
 
 A small, private, member-maintained directory for the Global Trade Network WhatsApp
 Community. WhatsApp stays the conversation layer; this is the structured memory:
@@ -10,16 +10,16 @@ and no directory data is served to an unauthenticated visitor.
 
 ## Stack
 
-| Concern     | Choice                                                    |
-| ----------- | --------------------------------------------------------- |
-| Framework   | Next.js 15 (App Router, server actions), React 19          |
-| Language    | TypeScript, `strict`                                       |
-| Database    | PostgreSQL via Prisma                                      |
-| Auth        | Auth.js (NextAuth v5), credentials provider, bcrypt hashes |
-| Validation  | Zod, applied server-side on every mutation                 |
-| Styling     | Tailwind CSS v4                                            |
-| Tests       | Vitest                                                     |
-| Hosting     | Vercel                                                     |
+| Concern    | Choice                                                     |
+| ---------- | ---------------------------------------------------------- |
+| Framework  | Next.js 15 (App Router, server actions), React 19          |
+| Language   | TypeScript, `strict`                                       |
+| Database   | PostgreSQL via Prisma                                      |
+| Auth       | Auth.js (NextAuth v5), credentials provider, bcrypt hashes |
+| Validation | Zod, applied server-side on every mutation                 |
+| Styling    | Tailwind CSS v4                                            |
+| Tests      | Vitest                                                     |
+| Hosting    | Vercel                                                     |
 
 ## Local setup
 
@@ -39,12 +39,12 @@ npm run dev                    # http://localhost:3000
 Set these in `.env.local` locally and in Vercel → Settings → Environment Variables.
 Never commit real values; `.env.example` lists names only.
 
-| Variable       | Required | Purpose                                                              |
-| -------------- | -------- | -------------------------------------------------------------------- |
-| `DATABASE_URL` | yes      | Pooled PostgreSQL URL used by the running app.                        |
+| Variable       | Required | Purpose                                                                                         |
+| -------------- | -------- | ----------------------------------------------------------------------------------------------- |
+| `DATABASE_URL` | yes      | Pooled PostgreSQL URL used by the running app.                                                  |
 | `DIRECT_URL`   | yes      | Direct (non-pooled) URL used by `prisma db push`. Same as above if your provider has no pooler. |
-| `AUTH_SECRET`  | yes      | Signs session cookies. Generate with `openssl rand -base64 32`.       |
-| `NEXTAUTH_URL` | local    | Base URL when developing. Vercel sets this automatically.             |
+| `AUTH_SECRET`  | yes      | Signs session cookies. Generate with `openssl rand -base64 32`.                                 |
+| `NEXTAUTH_URL` | local    | Base URL when developing. Vercel sets this automatically.                                       |
 
 ### Sharing a database with another product
 
@@ -73,7 +73,7 @@ the command line rather than storing them in a file.
 
 ## Database setup
 
-`npm run db:push` applies `prisma/schema.prisma` directly — enough for a project this
+`npm run db:push` applies `prisma/schema.prisma` directly, enough for a project this
 size. If you later want migration history, switch to `npx prisma migrate dev`.
 
 `npm run db:seed` is idempotent: members are matched by name and requests by requester
@@ -81,15 +81,15 @@ plus type, so re-running updates rather than duplicates.
 
 Four entities, deliberately lightly normalised:
 
-- **Member** — the directory profile. Markets and expertise are string arrays.
-- **InviteCode** — a code that lets a member create their own account.
-- **User** — a login. At most one per member profile, linked by `memberId`.
-- **Opportunity** — an active request, optionally linked to a requester profile and to
+- **Member**, the directory profile. Markets and expertise are string arrays.
+- **InviteCode**, a code that lets a member create their own account.
+- **User**, a login. At most one per member profile, linked by `memberId`.
+- **Opportunity**, an active request, optionally linked to a requester profile and to
   the members who could contribute to it.
 
 ## Authentication
 
-Email plus password, one account per person — never a shared Community password.
+Email plus password, one account per person, never a shared Community password.
 Passwords are hashed with bcrypt (cost 12) and never stored, logged or exported in
 plaintext. Sessions are JWT cookies signed with `AUTH_SECRET`.
 
@@ -99,7 +99,7 @@ disables an account or changes a role it takes effect on the member's very next 
 load rather than whenever their token happens to expire.
 
 Members can change their own password at **My Profile → Change my password**. Admins can
-reset any password from the Accounts page. There is no email-based self-service reset —
+reset any password from the Accounts page. There is no email-based self-service reset,
 that would need an email provider, which V1 deliberately does not have.
 
 ## Creating the initial admin
@@ -110,7 +110,7 @@ ADMIN_EMAIL=you@example.com ADMIN_PASSWORD='a-long-passphrase' npm run create:ad
 
 Run it against production by setting `DATABASE_URL` to the production database in the
 same command. Re-running with an existing email resets that account's password and
-ensures it is an enabled admin — this is also the recovery path if you lock yourself out.
+ensures it is an enabled admin, this is also the recovery path if you lock yourself out.
 
 An admin account does not need a member profile. If you are also a Community member,
 create your profile first and link it when creating the account.
@@ -125,14 +125,14 @@ A code can carry a **maximum number of uses** (blank = unlimited) and an **expir
 days** (blank = never), and can be disabled at any time. Codes are compared
 case-insensitively and ignore spaces, so members can type them casually.
 
-Sharing `https://your-app.vercel.app/signup?code=GTN-XXXX-XXXX` pre-fills the field —
+Sharing `https://your-app.vercel.app/signup?code=GTN-XXXX-XXXX` pre-fills the field,
 convenient to paste into WhatsApp.
 
 Self-signup always creates an ordinary **member** bound to a new profile of their own.
 Roles are only ever raised by an existing admin, so a code can never be used to obtain
 admin access.
 
-Every refusal — wrong, disabled, expired or exhausted code — returns the same message,
+Every refusal, wrong, disabled, expired or exhausted code, returns the same message,
 so the form cannot be used to discover which codes exist. Uses are claimed by a single
 guarded `UPDATE`, so two people submitting the last use of a code cannot both succeed,
 and a failed signup hands its use back.
@@ -144,12 +144,12 @@ logins by hand.
 
 All of this lives under **Admin → Accounts**:
 
-- **Create a login** — pick the member profile to link, set the role, set an initial
+- **Create a login**, pick the member profile to link, set the role, set an initial
   password, and share it with the member securely. They are flagged to change it.
-- **Disable access** — revokes access immediately while keeping the profile and its
-  history. Reversible with *Enable access*.
-- **Make admin / Make member** — changes the role.
-- **Reset** — sets a new password.
+- **Disable access**, revokes access immediately while keeping the profile and its
+  history. Reversible with _Enable access_.
+- **Make admin / Make member**, changes the role.
+- **Reset**, sets a new password.
 
 You cannot disable your own account or remove your own admin role, so the directory can
 never be left without an administrator.
@@ -157,7 +157,7 @@ never be left without an administrator.
 Only member profiles that do not already have an account appear in the link dropdown,
 which enforces one account per member.
 
-To remove someone from the directory entirely, disable their login *and* archive their
+To remove someone from the directory entirely, disable their login _and_ archive their
 profile under **Admin → Members**.
 
 ## How member-profile ownership works
@@ -173,7 +173,7 @@ action before any write:
   another member's id simply cannot reach that record.
 - `status` is admin-only. A member's submission has it stripped, so nobody can
   un-archive themselves.
-- Admin routes are gated in the route layout *and* re-checked inside each action. UI
+- Admin routes are gated in the route layout _and_ re-checked inside each action. UI
   hiding is presentation only, never the security boundary.
 
 `tests/authz.test.ts` covers the rules; `tests/integration/actions.test.ts` exercises the
@@ -181,7 +181,7 @@ real server actions against a real database, including the crafted-form case.
 
 ## Adding and editing opportunities
 
-**Admin → Active Requests**. In V1 members can read requests but not publish them —
+**Admin → Active Requests**. In V1 members can read requests but not publish them,
 they raise things in WhatsApp and the admin curates them in, which keeps quality and
 phrasing under editorial control.
 
@@ -191,8 +191,8 @@ has one-click transitions; the edit form covers everything.
 
 **Members who could contribute** reflects how the Community actually works: one member
 has the supplier, another the buyer, another logistics, finance or inspection. Tick
-everyone relevant and the request surfaces on each of their profiles under *Could
-contribute to*. There is no automated matchmaking — the data model just makes the
+everyone relevant and the request surfaces on each of their profiles under _Could
+contribute to_. There is no automated matchmaking, the data model just makes the
 answer visible.
 
 Ordinary profile edits save directly; there is no moderation queue. If you later want
@@ -204,8 +204,8 @@ one, every profile write already funnels through `applyMemberProfileUpdate()` in
 1. Push this repository to GitHub (private).
 2. In Vercel, **Add New → Project** and import it. The framework preset is detected;
    the build command `prisma generate && next build` is already in `package.json`.
-3. Provision PostgreSQL — Vercel Postgres, Neon or Supabase all work. To reuse an
-   existing project, see *Sharing a database with another product* above.
+3. Provision PostgreSQL. Vercel Postgres, Neon or Supabase all work. To reuse an
+   existing project, see _Sharing a database with another product_ above.
 4. Set `DATABASE_URL`, `DIRECT_URL` and `AUTH_SECRET` for Production (and Preview if
    you use it).
 5. Deploy.
@@ -233,7 +233,7 @@ reachable, and keep the GitHub repository private.
 npm run db:export      # writes exports/directory-YYYY-MM-DD.json
 ```
 
-Exports every member, request and account record as JSON — plain, portable, and easy to
+Exports every member, request and account record as JSON, plain, portable, and easy to
 move to another store. **Password hashes are deliberately excluded**, so an export is
 never credential material. `exports/` is git-ignored because the file contains member
 contact details; store it somewhere private.
@@ -245,7 +245,7 @@ database provider offers automated snapshots, keep those on as well.
 
 - Repository must stay **private**. It contains member professional contact data.
 - No secrets in git. `.env*` is git-ignored; `.env.example` carries names only.
-- No directory data is rendered or fetched before authentication — the authenticated
+- No directory data is rendered or fetched before authentication, the authenticated
   layout resolves the session first, and every page and action re-checks.
 - Every mutation is validated with Zod and authorized server-side. There are no
   unauthenticated data APIs.
@@ -254,22 +254,22 @@ database provider offers automated snapshots, keep those on as well.
 - Passwords are never written to logs, and `create:admin` prints only the email.
 - Indexing is disabled via `robots.txt`, a `noindex` meta tag and an `X-Robots-Tag`
   header, alongside `nosniff`, `DENY` framing and a strict referrer policy.
-- Rotating `AUTH_SECRET` invalidates every session — the fastest way to sign everyone
+- Rotating `AUTH_SECRET` invalidates every session, the fastest way to sign everyone
   out if a device is lost.
 
 ## Scripts
 
-| Command                 | Purpose                                       |
-| ----------------------- | --------------------------------------------- |
-| `npm run dev`           | Development server                            |
-| `npm run build`         | Production build (runs `prisma generate`)     |
-| `npm run lint`          | ESLint                                        |
-| `npm run typecheck`     | TypeScript, no emit                           |
-| `npm test`              | Vitest                                        |
-| `npm run db:push`       | Apply the schema                              |
-| `npm run db:seed`       | Load / refresh seed data                      |
-| `npm run db:export`     | Export the directory to JSON                  |
-| `npm run create:admin`  | Create or reset the admin account             |
+| Command                | Purpose                                   |
+| ---------------------- | ----------------------------------------- |
+| `npm run dev`          | Development server                        |
+| `npm run build`        | Production build (runs `prisma generate`) |
+| `npm run lint`         | ESLint                                    |
+| `npm run typecheck`    | TypeScript, no emit                       |
+| `npm test`             | Vitest                                    |
+| `npm run db:push`      | Apply the schema                          |
+| `npm run db:seed`      | Load / refresh seed data                  |
+| `npm run db:export`    | Export the directory to JSON              |
+| `npm run create:admin` | Create or reset the admin account         |
 
 Run the integration tests against a throwaway database:
 

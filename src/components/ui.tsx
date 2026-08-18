@@ -110,7 +110,7 @@ export const secondaryButtonClass = "gt-act";
 
 /**
  * The outcome of an action. A refusal is drawn in the danger ink and a
- * completion in the positive ink — both as a rule and a word, never colour
+ * completion in the positive ink, both as a rule and a word, never colour
  * alone, so the meaning survives a monochrome screen.
  */
 export function Notice({ ok, children }: { ok: boolean; children: ReactNode }) {
@@ -135,7 +135,7 @@ export function EmptyState({ children }: { children: ReactNode }) {
   );
 }
 
-/** A mono label over a sans value — the key/value row the design uses. */
+/** A mono label over a sans value, the key/value row the design uses. */
 export function DetailBlock({ label, value }: { label: string; value: string }) {
   if (!value) return null;
   return (

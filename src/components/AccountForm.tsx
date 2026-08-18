@@ -56,7 +56,7 @@ export function CreateAccountForm({ members }: { members: LinkableMember[] }) {
               {members.map((member) => (
                 <option key={member.id} value={member.id}>
                   {member.name}
-                  {member.company ? ` — ${member.company}` : ""}
+                  {member.company ? `, ${member.company}` : ""}
                 </option>
               ))}
             </select>

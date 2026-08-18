@@ -9,7 +9,7 @@ import { NextResponse, type NextRequest } from "next/server";
  * point of that route is to answer a link-preview crawler in a few
  * milliseconds without waking the database.
  *
- * This is NOT an authorization check — it only notices that a session cookie
+ * This is NOT an authorization check, it only notices that a session cookie
  * exists. The destination re-reads the session from the database and redirects
  * to the login itself if the cookie is stale or the account was disabled, so a
  * forged cookie buys nothing but a redirect.

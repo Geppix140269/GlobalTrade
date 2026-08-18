@@ -3,7 +3,7 @@
  *
  * These are pure functions with no I/O so they can be unit tested and reused
  * identically by pages, server actions and any future API surface. Every
- * mutation path must call one of these — UI hiding is presentation only and is
+ * mutation path must call one of these. UI hiding is presentation only and is
  * never the security boundary.
  */
 
@@ -52,7 +52,7 @@ export function canManageAccounts(actor: Actor | null): boolean {
 }
 
 /**
- * Requests / opportunities are curated by the admin in V1 — members may read
+ * Requests / opportunities are curated by the admin in V1, members may read
  * them but may not publish or modify them.
  */
 export function canManageOpportunities(actor: Actor | null): boolean {

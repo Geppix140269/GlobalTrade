@@ -1,4 +1,4 @@
-// Global Trade Network — Community Directory
+// Global Trade Network. Community Directory
 // Deliberately light normalisation: two core entities (Member, Opportunity) plus
 // login accounts (User). Scalar string arrays are used for markets/expertise so the
 // data stays trivially exportable and portable to another store later.
@@ -59,7 +59,7 @@ model InviteCode {
   id         String    @id @default(cuid())
   /// The code members type in. Stored uppercase; compared case-insensitively.
   code       String    @unique
-  /// What this code is for, e.g. "WhatsApp Community — January".
+  /// What this code is for, e.g. "WhatsApp Community. January".
   label      String    @default("")
   /// Null means unlimited uses.
   maxUses    Int?
@@ -96,7 +96,7 @@ model Member {
   markets       String[]     @default([])
   /// Free text: what they do.
   whatTheyDo    String       @default("")
-  /// Products, services, expertise tags — also used for filtering.
+  /// Products, services, expertise tags, also used for filtering.
   expertise     String[]     @default([])
   currentFocus  String       @default("")
   lookingFor    String       @default("")

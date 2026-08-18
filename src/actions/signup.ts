@@ -101,7 +101,7 @@ export async function signUpAction(
     // The member id is generated here rather than by the database so both rows
     // can go in the batch form of $transaction. The interactive form needs a
     // session pinned to one connection, which a transaction-mode pooler
-    // (Neon's and Supabase's are both PgBouncer) does not provide — it works
+    // (Neon's and Supabase's are both PgBouncer) does not provide, it works
     // against a direct connection and fails in production.
     const memberId = randomUUID();
     const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
@@ -112,7 +112,7 @@ export async function signUpAction(
         data: {
           email,
           passwordHash,
-          // The role comes from the code, which only an admin can create — a
+          // The role comes from the code, which only an admin can create, a
           // member can never choose their own.
           role: invite.role,
           memberId,

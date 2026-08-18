@@ -10,8 +10,8 @@ import { logoutAction } from "@/actions/auth-actions";
  * before this resolves; each page and server action re-checks authorization
  * independently.
  *
- * The masthead sits on the inverse ground — the ink field the design reserves
- * for product chrome — and the page below it is paper.
+ * The masthead sits on the inverse ground, the ink field the design reserves
+ * for product chrome, and the page below it is paper.
  */
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const actor = await requireUser();
@@ -60,7 +60,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
       <footer className="mt-[var(--pt-space-7)] border-t border-[var(--pf-rule)]">
         <p className="mx-auto w-full max-w-[var(--pt-measure-page)] px-[var(--pt-gutter)] py-[var(--pt-space-5)] font-mono text-(length:--pt-mono-caption) tracking-[var(--pt-ls-count)] text-[var(--pf-mute)] uppercase">
-          Global Trade Network — private to Community members
+          Global Trade Network · private to Community members
         </p>
       </footer>
     </div>

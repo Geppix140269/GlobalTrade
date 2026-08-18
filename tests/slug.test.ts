@@ -17,7 +17,7 @@ describe("slugify", () => {
   });
 
   it("never leaves a leading or trailing separator", () => {
-    expect(slugify("  —  Futuretend  —  ")).toBe("futuretend");
+    expect(slugify("  ·  Futuretend  ·  ")).toBe("futuretend");
     expect(slugify("!!!")).toBe("");
   });
 

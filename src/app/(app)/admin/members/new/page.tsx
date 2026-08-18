@@ -4,7 +4,7 @@ import { MemberForm } from "@/components/MemberForm";
 import { PageHeader } from "@/components/ui";
 import { requireAdmin } from "@/lib/session";
 
-export const metadata = { title: "Admin · Add member — Global Trade Network" };
+export const metadata = { title: "Admin · Add member · Global Trade Network" };
 
 export default async function NewMemberPage() {
   // Guarded by the admin layout as well; repeated here so this page never

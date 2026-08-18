@@ -8,7 +8,7 @@ import { Card, EmptyState, PageHeader, StatusPill, Tag } from "@/components/ui";
 import { InlineAction } from "@/components/InlineAction";
 import { CreateInviteForm } from "@/components/InviteForm";
 
-export const metadata = { title: "Admin · Invite codes — Global Trade Network" };
+export const metadata = { title: "Admin · Invite codes · Global Trade Network" };
 
 export default async function AdminInvitesPage() {
   // Guarded by the admin layout as well; repeated here so this page never

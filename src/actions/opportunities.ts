@@ -22,7 +22,7 @@ function readOpportunityForm(formData: FormData) {
   };
 }
 
-/** Admin only — members may read requests but never publish or edit them in V1. */
+/** Admin only, members may read requests but never publish or edit them in V1. */
 export async function createOpportunity(
   _prev: ActionResult | null,
   formData: FormData,

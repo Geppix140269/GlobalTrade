@@ -5,7 +5,7 @@ import { BrandMark } from "@/components/BrandMark";
 import { SignupForm } from "./SignupForm";
 
 export const metadata = {
-  title: "Join — Global Trade Network",
+  title: "Join · Global Trade Network",
   robots: { index: false, follow: false },
 };
 

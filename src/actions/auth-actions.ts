@@ -24,7 +24,7 @@ export async function loginAction(
       // the account has been disabled.
       return { error: "Incorrect email or password, or this account is not active." };
     }
-    // next/navigation redirects are thrown — let them through.
+    // next/navigation redirects are thrown, let them through.
     throw error;
   }
 }

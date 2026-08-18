@@ -35,7 +35,7 @@ export function SignupForm({ defaultCode }: { defaultCode: string }) {
         <input className={inputClass} name="name" autoComplete="name" required />
       </Field>
 
-      <Field label="Company" hint="Optional — you can add it later.">
+      <Field label="Company" hint="Optional · you can add it later.">
         <input className={inputClass} name="company" autoComplete="organization" />
       </Field>
 

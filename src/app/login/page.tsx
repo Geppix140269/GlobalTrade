@@ -4,10 +4,10 @@ import { getCurrentUser } from "@/lib/session";
 import { BrandMark } from "@/components/BrandMark";
 import { LoginForm } from "./LoginForm";
 
-export const metadata = { title: "Sign in — Global Trade Network" };
+export const metadata = { title: "Sign in · Global Trade Network" };
 
 /**
- * The door. It stands on the inverse ground — ink — with the form itself on
+ * The door. It stands on the inverse ground, ink, with the form itself on
  * paper, so the one thing to do on the page is the one lit surface.
  */
 export default async function LoginPage() {

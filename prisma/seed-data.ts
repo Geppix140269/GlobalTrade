@@ -9,7 +9,7 @@ import type { Prisma } from "@prisma/client";
 
 /**
  * NOTE ON SCOPE: this file bootstraps an empty directory. Once someone claims
- * their profile they maintain it themselves, and re-seeding would fight them —
+ * their profile they maintain it themselves, and re-seeding would fight them,
  * `db:seed` matches on an exact name, so a member who capitalises their own
  * name differently gets a duplicate rather than an update. Add people here only
  * before they have an account; afterwards use Admin -> Members.
@@ -51,7 +51,7 @@ export const members: Prisma.MemberCreateInput[] = [
       "International trading company focused on import/export and sourcing of food commodities. The company works on supplier identification, international sourcing, export development, distribution and B2B trade transactions, connecting producers with importers, distributors and institutional buyers.",
     expertise: [
       "Premium Extra Virgin Olive Oil",
-      "Fish & seafood — fresh, frozen and canned",
+      "Fish & seafood · fresh, frozen and canned",
       "Edible vegetable oils",
       "Pulses",
       "Grains",
@@ -64,7 +64,7 @@ export const members: Prisma.MemberCreateInput[] = [
     lookingFor:
       "Serious importers and distributors; supermarket and retail purchasing networks; food-service and HORECA distributors; reliable manufacturers and producers; seafood importers and wholesalers; government or institutional procurement opportunities; logistics, inspection, customs, trade-finance and market-entry specialists; local representatives or partners.",
     canOffer:
-      "Product sourcing, supplier identification, export/import opportunities, introductions to buyers and producers, international trade development and market connections — particularly between Canada, Africa, Europe and the Middle East.",
+      "Product sourcing, supplier identification, export/import opportunities, introductions to buyers and producers, international trade development and market connections · particularly between Canada, Africa, Europe and the Middle East.",
     status: "ACTIVE",
   },
   {

@@ -21,7 +21,7 @@ export interface ActionResult {
 /**
  * The single write path for member profiles.
  *
- * Every profile change — member self-service or admin correction — goes through
+ * Every profile change, member self-service or admin correction, goes through
  * here, so a future "pending review" workflow only needs to be added in one
  * place: write the patch to a revisions table instead of the member row when the
  * actor is not an admin, and have the admin apply it later.

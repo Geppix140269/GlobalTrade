@@ -5,7 +5,7 @@ import { Card, EmptyState, PageHeader, StatusPill } from "@/components/ui";
 import { InlineAction } from "@/components/InlineAction";
 import { requireAdmin } from "@/lib/session";
 
-export const metadata = { title: "Admin · Members — Global Trade Network" };
+export const metadata = { title: "Admin · Members · Global Trade Network" };
 
 export default async function AdminMembersPage() {
   // Guarded by the admin layout as well; repeated here so this page never

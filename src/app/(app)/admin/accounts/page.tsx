@@ -6,7 +6,7 @@ import { InlineAction } from "@/components/InlineAction";
 import { CreateAccountForm, ResetPasswordForm } from "@/components/AccountForm";
 import { requireAdmin } from "@/lib/session";
 
-export const metadata = { title: "Admin · Accounts — Global Trade Network" };
+export const metadata = { title: "Admin · Accounts · Global Trade Network" };
 
 export default async function AdminAccountsPage() {
   // Guarded by the admin layout as well; repeated here so this page never
@@ -25,7 +25,7 @@ export default async function AdminAccountsPage() {
         member: { select: { id: true, name: true } },
       },
     }),
-    // Only profiles without an account can be linked — one account per member.
+    // Only profiles without an account can be linked, one account per member.
     prisma.member.findMany({
       where: { user: null, status: { not: "ARCHIVED" } },
       select: { id: true, name: true, company: true },

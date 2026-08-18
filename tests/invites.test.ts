@@ -18,8 +18,12 @@ describe("checkInvite", () => {
   });
 
   it("rejects an expired code but accepts one expiring later", () => {
-    expect(checkInvite({ ...base, expiresAt: new Date("2026-05-31T12:00:00Z") }, now).ok).toBe(false);
-    expect(checkInvite({ ...base, expiresAt: new Date("2026-06-02T12:00:00Z") }, now).ok).toBe(true);
+    expect(checkInvite({ ...base, expiresAt: new Date("2026-05-31T12:00:00Z") }, now).ok).toBe(
+      false,
+    );
+    expect(checkInvite({ ...base, expiresAt: new Date("2026-06-02T12:00:00Z") }, now).ok).toBe(
+      true,
+    );
   });
 
   it("treats the exact expiry moment as expired", () => {

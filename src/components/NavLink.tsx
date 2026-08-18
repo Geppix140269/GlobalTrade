@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 /**
- * A masthead tab. The current one is marked by a gold rule beneath it —
+ * A masthead tab. The current one is marked by a gold rule beneath it,
  * gold as structure, which is one of the jobs the design gives it.
  */
 export function NavLink({ href, children }: { href: string; children: ReactNode }) {

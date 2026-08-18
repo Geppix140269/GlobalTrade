@@ -6,7 +6,7 @@ import { updateMyProfile } from "@/actions/profile";
 import { MemberForm } from "@/components/MemberForm";
 import { Card, PageHeader } from "@/components/ui";
 
-export const metadata = { title: "My Profile — Global Trade Network" };
+export const metadata = { title: "My Profile · Global Trade Network" };
 
 export default async function ProfilePage() {
   const actor = await requireUser();

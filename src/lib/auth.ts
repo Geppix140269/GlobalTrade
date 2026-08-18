@@ -56,7 +56,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const hash = user?.passwordHash ?? DUMMY_HASH;
         const passwordOk = await bcrypt.compare(parsed.data.password, hash);
 
-        // Never log the submitted credentials — only a non-identifying outcome.
+        // Never log the submitted credentials, only a non-identifying outcome.
         if (!user || !passwordOk || !user.isActive) return null;
 
         return { id: user.id, email: user.email, role: user.role, memberId: user.memberId };

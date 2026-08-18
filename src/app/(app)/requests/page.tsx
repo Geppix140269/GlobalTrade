@@ -5,7 +5,7 @@ import { requireUser } from "@/lib/session";
 import { isAdmin } from "@/lib/authz";
 import { Card, EmptyState, PageHeader, StatusPill, Tag, inputClass } from "@/components/ui";
 
-export const metadata = { title: "Active Requests — Global Trade Network" };
+export const metadata = { title: "Active Requests · Global Trade Network" };
 
 const STATUSES = ["OPEN", "IN_PROGRESS", "MATCHED", "ON_HOLD", "CLOSED"] as const;
 

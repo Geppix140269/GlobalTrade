@@ -160,7 +160,7 @@ export default async function MemberDetailPage({ params }: { params: Promise<{ i
             </p>
             <p className="gt-prose mt-2">
               Safe to paste into a chat. It previews with {member.name.split(" ")[0]}&rsquo;s name,
-              role, company and country — everything else needs a login.
+              role, company and country. Everything else needs a login.
             </p>
           </div>
         ) : null}

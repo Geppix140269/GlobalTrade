@@ -12,7 +12,7 @@ import { BrandMark } from "@/components/BrandMark";
  * as an empty grey box in WhatsApp: the crawler is redirected before it can
  * read anything. This route is the public face of that link.
  *
- * WHAT IS PUBLIC HERE, AND ONLY THIS: name, role, company and base country —
+ * WHAT IS PUBLIC HERE, AND ONLY THIS: name, role, company and base country,
  * the four things a link preview has to carry to be worth sending. Email,
  * telephone, markets, expertise, what the member is looking for and every
  * request stay behind the login, on /members/[id].
@@ -22,7 +22,7 @@ import { BrandMark } from "@/components/BrandMark";
  *
  * CACHED ON PURPOSE. The page holds no per-visitor state, so it is rendered
  * once and revalidated. A link-preview crawler gets an answer in milliseconds
- * from the edge without waking the database — which matters because the
+ * from the edge without waking the database, which matters because the
  * database sleeps when idle, and a crawler that waits does not draw a card.
  * Profile edits call revalidatePath("/m/<slug>"), so a change shows up at once
  * rather than at the end of the window.
@@ -36,7 +36,7 @@ export const revalidate = 3600;
  * asks for it. Without this Next treats the segment as dynamic and sends
  * `no-store`, which is what kept every preview waiting on the database.
  *
- * A member added after the build is still served — `dynamicParams` stays on,
+ * A member added after the build is still served. `dynamicParams` stays on,
  * so an unknown slug renders once and is cached from then on. If the database
  * cannot be reached at build time the list is simply empty and every card
  * falls back to that on-demand path, because a directory that cannot deploy
@@ -76,10 +76,10 @@ async function findMember(slug: string) {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const member = await findMember(slug);
-  if (!member) return { title: "Global Trade Network — Community Directory" };
+  if (!member) return { title: "Global Trade Network · Community Directory" };
 
   const line = [member.roleTitle, member.company].filter(Boolean).join(" · ");
-  const title = member.company ? `${member.name} — ${member.company}` : member.name;
+  const title = member.company ? `${member.name}, ${member.company}` : member.name;
   const description = [
     line,
     member.baseCountry ? `Based in ${member.baseCountry}.` : "",
@@ -138,8 +138,8 @@ export default async function ShareCardPage({ params }: Params) {
           {member.baseCountry ? <p className="gt-meta mt-2">{member.baseCountry}</p> : null}
 
           <p className="gt-prose mt-[var(--pt-space-5)] border-t border-[var(--pf-rule)] pt-[var(--pt-space-4)]">
-            The full profile — markets covered, products and expertise, what they are looking for
-            and how to reach them — is visible to Community members.
+            The full profile, covering markets, products and expertise, what they are looking for
+            and how to reach them, is visible to Community members.
           </p>
 
           <div className="mt-[var(--pt-space-4)] flex flex-wrap gap-2">

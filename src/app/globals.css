@@ -2,16 +2,16 @@
 @import "./tokens.css";
 
 /* =====================================================================
-   GLOBAL TRADE NETWORK — document ground
+   GLOBAL TRADE NETWORK, document ground
    =====================================================================
 
    The design language is Ponte Trade's, adopted wholesale. Three laws
    carry most of it, and breaking any one of them is what made the first
    version of this directory look like a different product:
 
-     SERIF NAMES a thing   — headings, titles, a member's own name
-     SANS EXPLAINS it      — sentences, prose, guidance, empty states
-     MONO CLASSIFIES it    — labels, states, counts, references
+     SERIF NAMES a thing:   headings, titles, a member's own name
+     SANS EXPLAINS it:      sentences, prose, guidance, empty states
+     MONO CLASSIFIES it:    labels, states, counts, references
 
    And two more that are easy to undo by accident:
 
@@ -139,7 +139,7 @@
   text-wrap: balance;
 }
 
-/* The register heading — the h2 above every list in the product. */
+/* The register heading, the h2 above every list in the product. */
 .gt-heading {
   font-family: var(--f-serif);
   font-size: var(--pt-heading);
@@ -311,7 +311,7 @@
 
 /* The derived ground: a block Ponte's Choice System reserves for a thing
    the system worked out rather than a thing a person stated. Used here
-   for generated material — an invite link, a computed count. */
+   for generated material such as an invite link or a computed count. */
 .gt-derived {
   background: var(--pf-sunken);
   border: 1px solid var(--pf-rule);

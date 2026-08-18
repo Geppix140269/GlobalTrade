@@ -105,7 +105,7 @@ export function OpportunityForm({
             {members.map((member) => (
               <option key={member.id} value={member.id}>
                 {member.name}
-                {member.company ? ` — ${member.company}` : ""}
+                {member.company ? `, ${member.company}` : ""}
               </option>
             ))}
           </select>
@@ -177,7 +177,7 @@ export function OpportunityForm({
               <span className="text-sm text-[var(--pf-ink)]">
                 {member.name}
                 {member.company ? (
-                  <span className="text-[var(--pf-ink-3)]"> — {member.company}</span>
+                  <span className="text-[var(--pf-ink-3)]"> · {member.company}</span>
                 ) : null}
               </span>
             </label>

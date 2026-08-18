@@ -3,7 +3,7 @@ import { requireUser } from "@/lib/session";
 import { filterOptions, findMembers } from "@/lib/members";
 import { EmptyState, PageHeader, Tag, inputClass } from "@/components/ui";
 
-export const metadata = { title: "Members — Global Trade Network" };
+export const metadata = { title: "Members · Global Trade Network" };
 
 interface SearchParams {
   q?: string;

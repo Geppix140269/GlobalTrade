@@ -3,7 +3,7 @@
  *
  * Ponte Brand Identity v1 binds one rule above the others: the mark is
  * REFERENCED, never drawn. A second copy of the geometry in source is how a
- * brand stops being one — the copy drifts, and nobody notices until two
+ * brand stops being one, the copy drifts, and nobody notices until two
  * surfaces disagree.
  *
  * This fails the build if the arch path, the deck line or the keystone
@@ -61,7 +61,7 @@ for (const dir of SOURCE_DIRS) {
       if (text.includes(sig)) {
         failures.push(
           `${file.replace(ROOT + "/", "")} contains the mark's geometry. ` +
-            `The mark is referenced, never drawn — load it from public/brand/ ` +
+            `The mark is referenced, never drawn, load it from public/brand/ ` +
             `through src/components/BrandMark.tsx instead.`,
         );
       }
@@ -79,7 +79,7 @@ for (const [asset, mustContain] of Object.entries(REQUIRED_ASSETS)) {
   }
   for (const needle of mustContain) {
     if (!text.includes(needle)) {
-      failures.push(`${asset} no longer contains ${needle} — the exported asset has been altered.`);
+      failures.push(`${asset} no longer contains ${needle}, the exported asset has been altered.`);
     }
   }
 }

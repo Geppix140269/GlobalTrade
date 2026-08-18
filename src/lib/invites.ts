@@ -1,5 +1,5 @@
 /**
- * Invite code rules. Pure and testable — the atomic reservation that actually
+ * Invite code rules. Pure and testable, the atomic reservation that actually
  * prevents over-use lives in the signup action as a single guarded UPDATE.
  */
 

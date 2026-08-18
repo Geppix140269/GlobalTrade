@@ -30,14 +30,14 @@ export function CreateInviteForm({ members }: { members: ClaimableMember[] }) {
       <form action={formAction} className="space-y-4">
         <Field
           label="Claim an existing profile"
-          hint="Leave as “New members” for a shared code. Pick a person to give them ownership of the profile already in the directory — that code works once and is theirs alone."
+          hint="Leave as “New members” for a shared code. Pick a person to give them ownership of the profile already in the directory · that code works once and is theirs alone."
         >
           <select className={inputClass} name="memberId" defaultValue="">
-            <option value="">New members — creates a fresh profile</option>
+            <option value="">New members, creates a fresh profile</option>
             {members.map((member) => (
               <option key={member.id} value={member.id}>
                 {member.name}
-                {member.company ? ` — ${member.company}` : ""}
+                {member.company ? `, ${member.company}` : ""}
               </option>
             ))}
           </select>
@@ -49,7 +49,7 @@ export function CreateInviteForm({ members }: { members: ClaimableMember[] }) {
         >
           <select className={inputClass} name="role" defaultValue="MEMBER">
             <option value="MEMBER">Member</option>
-            <option value="ADMIN">Admin — full control of the directory</option>
+            <option value="ADMIN">Admin, full control of the directory</option>
           </select>
         </Field>
 

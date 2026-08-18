@@ -7,7 +7,7 @@ import "./globals.css";
  * The three faces the design language names. They are vendored under
  * `src/app/fonts/` with their OFL licences and declared with
  * `next/font/local`, so nothing is fetched from a font CDN at build or run
- * time — a font that arrives over the network is a brand that depends on
+ * time, a font that arrives over the network is a brand that depends on
  * somebody else's uptime.
  */
 const playfair = localFont({
@@ -35,12 +35,12 @@ export const metadata: Metadata = {
   // Absolute URLs are required: a link preview is fetched by somebody else's
   // server, which cannot resolve a relative path.
   metadataBase: new URL(siteUrl()),
-  title: "Global Trade Network — Community Directory",
+  title: "Global Trade Network · Community Directory",
   description: "Private directory for the Global Trade Network Community.",
   openGraph: {
     type: "website",
     siteName: "Global Trade Network",
-    title: "Global Trade Network — Community Directory",
+    title: "Global Trade Network · Community Directory",
     description: "Private directory for the Global Trade Network Community.",
   },
   twitter: { card: "summary_large_image" },

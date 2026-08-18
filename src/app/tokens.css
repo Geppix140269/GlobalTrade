@@ -106,7 +106,8 @@
   --pf-interaction-hover: #0f3d6b;
   --pf-focus: #1e5fa8;
   --pf-select: #dce8f4;
-  --pf-focus-ring: 0 0 0 2px var(--pf-surface), 0 0 0 4px var(--pf-focus); /* retired — see .pf-focus rule in base.css */
+  --pf-focus-ring:
+    0 0 0 2px var(--pf-surface), 0 0 0 4px var(--pf-focus); /* retired — see .pf-focus rule in base.css */
 
   /* ---- ground swatches --------------------------------------------
      Fixed on both grounds on purpose: these paint the little squares in
@@ -156,12 +157,15 @@
      time. The system stacks behind them are a fallback for the moment before
      a face arrives, and for any glyph outside the latin subset — not the
      plan, which is what they had quietly become. */
-  --f-serif: var(--font-playfair), "Iowan Old Style", "Palatino Linotype",
-    Palatino, Georgia, "Times New Roman", serif;
-  --f-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --f-mono: var(--font-mono), ui-monospace, "SFMono-Regular", "Cascadia Mono",
-    Menlo, Consolas, "Liberation Mono", monospace;
+  --f-serif:
+    var(--font-playfair), "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    "Times New Roman", serif;
+  --f-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --f-mono:
+    var(--font-mono), ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
 
   /* ---- type scale -------------------------------------------------
      Transcribed from My Trade Room vNext (APPROVED), which carries 24
@@ -186,37 +190,37 @@
      172 existing references move for free. */
 
   /* -- serif titles -------------------------------------------------- */
-  --pt-display: 48px;          /* the page title: the greeting, the hero */
-  --pt-title: 40px;            /* the title of a room or a record */
-  --pt-heading: 25px;          /* THE REGISTER HEADING. The spine of the ledger. */
-  --pt-figure: 22px;           /* a headline value, a serif position name, the mono row index */
-  --pt-heading-minor: 20px;    /* a serif h3 that still opens a register */
+  --pt-display: 48px; /* the page title: the greeting, the hero */
+  --pt-title: 40px; /* the title of a room or a record */
+  --pt-heading: 25px; /* THE REGISTER HEADING. The spine of the ledger. */
+  --pt-figure: 22px; /* a headline value, a serif position name, the mono row index */
+  --pt-heading-minor: 20px; /* a serif h3 that still opens a register */
 
   /* -- sans reading -------------------------------------------------- */
-  --pt-row-title: 19.5px;      /* THE ROW TITLE in a principal register */
-  --pt-lead: 19.5px;           /* the standfirst under a page title */
-  --pt-sub-title: 17px;        /* a door title, a next-action title */
-  --pt-intel-title: 16.5px;    /* the new-intelligence title */
-  --pt-sentence: 16px;         /* the Sentence filter and its pills */
-  --pt-heading-sub: 15.5px;    /* a SUB-register heading — sans, deliberately not serif */
-  --pt-body: 15px;             /* running body, a secondary row title */
-  --pt-prose: 14.5px;          /* a rationale, a nav label, empty-state prose */
-  --pt-action: 14px;           /* the label inside a button */
-  --pt-small: 13.5px;          /* a register subtitle, a counterparty line */
-  --pt-meta: 13px;             /* a field label in a ruled key/value row */
-  --pt-caption: 12.5px;        /* an action note, a refusal, a footnote */
-  --pt-fine: 12px;             /* THE PROSE FLOOR. Nothing sans goes below this. */
+  --pt-row-title: 19.5px; /* THE ROW TITLE in a principal register */
+  --pt-lead: 19.5px; /* the standfirst under a page title */
+  --pt-sub-title: 17px; /* a door title, a next-action title */
+  --pt-intel-title: 16.5px; /* the new-intelligence title */
+  --pt-sentence: 16px; /* the Sentence filter and its pills */
+  --pt-heading-sub: 15.5px; /* a SUB-register heading — sans, deliberately not serif */
+  --pt-body: 15px; /* running body, a secondary row title */
+  --pt-prose: 14.5px; /* a rationale, a nav label, empty-state prose */
+  --pt-action: 14px; /* the label inside a button */
+  --pt-small: 13.5px; /* a register subtitle, a counterparty line */
+  --pt-meta: 13px; /* a field label in a ruled key/value row */
+  --pt-caption: 12.5px; /* an action note, a refusal, a footnote */
+  --pt-fine: 12px; /* THE PROSE FLOOR. Nothing sans goes below this. */
 
   /* -- mono: labels, references, values -------------------------------
      Below 12px the design sets mono only, uppercase, tracked. Nothing
      under 12px is ever a sentence somebody has to read. */
-  --pt-mono-value: 13.5px;     /* the value in a positions row, tabular */
-  --pt-mono-fact: 13px;        /* a fact value, a door value, tabular */
-  --pt-mono-caption: 11px;     /* a reference tier: an owner, a match count */
-  --pt-mono-band: 10.5px;      /* a band eyebrow over a whole section */
-  --pt-mono-label: 10px;       /* a register count, a row reference */
+  --pt-mono-value: 13.5px; /* the value in a positions row, tabular */
+  --pt-mono-fact: 13px; /* a fact value, a door value, tabular */
+  --pt-mono-caption: 11px; /* a reference tier: an owner, a match count */
+  --pt-mono-band: 10.5px; /* a band eyebrow over a whole section */
+  --pt-mono-label: 10px; /* a register count, a row reference */
   --pt-mono-affordance: 9.5px; /* a column label, a family label, "Enter the room →" */
-  --pt-mono-chip: 9px;         /* THE STATE CHIP, and only chip-weight things */
+  --pt-mono-chip: 9px; /* THE STATE CHIP, and only chip-weight things */
   /* THE FIELD LABEL, at its real weight — owner decision, 11 August 2026:
      8.5px on the desktop, and the phone keeps its own floor.
 
@@ -232,7 +236,7 @@
      At 10px they outweighed what they labelled by sheer count. They are
      signposts, and a signpost that competes with the road is a worse
      signpost. */
-  --pt-mono-micro: 8.5px;      /* THE FIELD LABEL as an eyebrow, a value kind */
+  --pt-mono-micro: 8.5px; /* THE FIELD LABEL as an eyebrow, a value kind */
 
   /* -- weight: three values, and no others --------------------------- */
   --pt-w-book: 400;
@@ -245,7 +249,7 @@
   --pt-lh-figure: 1.2;
   --pt-lh-title: 1.32;
   --pt-lh-prose: 1.5;
-  --pt-lh-read: 1.6;           /* the only prose read at length */
+  --pt-lh-read: 1.6; /* the only prose read at length */
   --pt-lh-flat: 1;
 
   /* -- tracking: negative on serif titles, wide on uppercase mono ----- */
@@ -349,7 +353,9 @@
   --pf-interaction-hover: #a9cbee;
   --pf-focus: #6fa8e0;
   --pf-select: #16202b;
-  --pf-focus-ring: 0 0 0 2px var(--pf-surface), 0 0 0 4px var(--pf-focus); /* retired — see .pf-focus rule in base.css */}
+  --pf-focus-ring:
+    0 0 0 2px var(--pf-surface), 0 0 0 4px var(--pf-focus); /* retired — see .pf-focus rule in base.css */
+}
 
 /* THE MOBILE LADDER.
    Not the desktop scaled down: the approved design draws its own 390

@@ -5,7 +5,7 @@ import { Card, EmptyState, PageHeader, StatusPill, Tag } from "@/components/ui";
 import { InlineAction } from "@/components/InlineAction";
 import { requireAdmin } from "@/lib/session";
 
-export const metadata = { title: "Admin · Requests — Global Trade Network" };
+export const metadata = { title: "Admin · Requests · Global Trade Network" };
 
 const NEXT_STATUS: Record<string, { status: string; label: string }[]> = {
   OPEN: [

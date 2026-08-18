@@ -1,8 +1,8 @@
 /**
  * The public origin, used to build absolute URLs for link previews.
  *
- * A link preview is fetched by somebody else's server — WhatsApp's, not the
- * reader's browser — so every URL in the metadata has to be absolute. Vercel
+ * A link preview is fetched by somebody else's server. WhatsApp's, not the
+ * reader's browser, so every URL in the metadata has to be absolute. Vercel
  * exposes the production host at build and run time; NEXT_PUBLIC_APP_URL
  * overrides it if the app ever moves to its own domain.
  */

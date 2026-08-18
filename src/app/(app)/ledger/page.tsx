@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/session";
 import { EmptyState, PageHeader, StatusPill, Tag } from "@/components/ui";
 
-export const metadata = { title: "The Ledger — Global Trade Network" };
+export const metadata = { title: "The Ledger · Global Trade Network" };
 
 interface SearchParams {
   market?: string;

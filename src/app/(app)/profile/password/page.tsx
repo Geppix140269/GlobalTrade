@@ -3,7 +3,7 @@ import { requireUser } from "@/lib/session";
 import { PageHeader } from "@/components/ui";
 import { PasswordForm } from "./PasswordForm";
 
-export const metadata = { title: "Change password — Global Trade Network" };
+export const metadata = { title: "Change password · Global Trade Network" };
 
 export default async function PasswordPage() {
   await requireUser();

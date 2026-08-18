@@ -4,7 +4,7 @@ import Image from "next/image";
  * The Ponte mark, as used by the Global Trade Network directory.
  *
  * BRAND AUTHORITY
- * Ponte Brand Identity v1 — 2026-08-10 — APPROVED AND FROZEN, via
+ * Ponte Brand Identity v1. 2026-08-10. APPROVED AND FROZEN, via
  * ponte-trade/docs/authority/DESIGN.md §11. The assets in `public/brand/`
  * are the exported files, not a copy of them.
  *
@@ -14,12 +14,12 @@ import Image from "next/image";
  * component is the only place the asset is loaded, and
  * `scripts/check-brand.mjs` fails the build if the path reappears in source.
  *
- * GROUNDS. On the ink ground the mark reverses directly onto it — no chip,
+ * GROUNDS. On the ink ground the mark reverses directly onto it, no chip,
  * because a chip on ink is invisible and adds nothing. On paper it sits in
  * an ink chip, per the vNext handoff §1a.
  *
  * WHAT THIS PRODUCT DOES NOT USE. The `Ponte.trade` lockup names the
- * company, and this directory is not that company — it carries the mark and
+ * company, and this directory is not that company, it carries the mark and
  * the design language, and keeps its own name in type beside it. The
  * exported lockups are in `public/brand/` for documents and letterhead.
  */

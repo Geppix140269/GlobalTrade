@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { Card, PageHeader } from "@/components/ui";
 import { requireAdmin } from "@/lib/session";
 
-export const metadata = { title: "Admin — Global Trade Network" };
+export const metadata = { title: "Admin · Global Trade Network" };
 
 export default async function AdminPage() {
   // Guarded by the admin layout as well; repeated here so this page never
