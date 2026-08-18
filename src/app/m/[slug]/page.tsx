@@ -31,6 +31,29 @@ import { BrandMark } from "@/components/BrandMark";
 /** Long, because every edit revalidates explicitly. */
 export const revalidate = 3600;
 
+/**
+ * Prerendered at build so the card is on the edge before the first crawler
+ * asks for it. Without this Next treats the segment as dynamic and sends
+ * `no-store`, which is what kept every preview waiting on the database.
+ *
+ * A member added after the build is still served — `dynamicParams` stays on,
+ * so an unknown slug renders once and is cached from then on. If the database
+ * cannot be reached at build time the list is simply empty and every card
+ * falls back to that on-demand path, because a directory that cannot deploy
+ * is worse than one whose previews are a second slower.
+ */
+export async function generateStaticParams() {
+  try {
+    const members = await prisma.member.findMany({
+      where: { status: "ACTIVE", slug: { not: null } },
+      select: { slug: true },
+    });
+    return members.map((m) => ({ slug: m.slug as string }));
+  } catch {
+    return [];
+  }
+}
+
 interface Params {
   params: Promise<{ slug: string }>;
 }
